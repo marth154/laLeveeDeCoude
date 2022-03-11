@@ -3,9 +3,9 @@ env/
 .env/
 
 # Ignore Python byte code cache
-**/.DS_Store
-**/__pycache__/*
-**/migrations/*
+*.pyc
+__pycache__
+.cache
 data/
 
 # Ignore coverage reports
@@ -16,6 +16,9 @@ reports/
 *.egg-info/
 pip-wheel-metadata/
 dist/
+
+# Ignore stupid .DS_Store
+.DS_Store
 
 # Ignore benchmark results
 .benchmarks/
