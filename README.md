@@ -15,3 +15,7 @@ docker-compose up
 
 ### Stop project :
 docker-compose down
+
+
+### Create admin user :
+docker-compose run web python manage.py createsuperuser
