@@ -4,7 +4,8 @@ env/
 
 # Ignore Python byte code cache
 *.pyc
-__pycache__
+**/__pycache__/*
+**/migrations/*
 .cache
 data/
 
