@@ -18,7 +18,7 @@ class Recipe(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     is_shared = models.BooleanField(default=False)
-    alcoholic = models.BooleanField(default=True)
+    is_alcoholic = models.BooleanField(default=True)
     glass_id = models.ForeignKey(Glass, on_delete=models.CASCADE)
     steps = models.TextField()
     ingredient_group = models.ManyToManyField(Ingredient)
