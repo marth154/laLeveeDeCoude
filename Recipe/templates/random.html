@@ -3,29 +3,31 @@
 <link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/bootstrap.min.css' %}" />
 
 {% if response %}
-  {% for recipe in response.drinks %}
   <div class="container">
-    <h1 class="text-center">{{recipe.strDrink}}</h1>
+    <h1 class="text-center">{{response.strDrink}}</h1>
     <div class="text-center">
-      <span class="badge rounded-pill bg-primary">{{recipe.strCategory}}</span>
-      <span class="badge rounded-pill bg-secondary">{{recipe.strGlass}}</span>
-      <span class="badge rounded-pill bg-success">{{recipe.strAlcoholic}}</span>
+      <span class="badge bg-primary">{{response.strCategory}}</span>
+      <span class="badge bg-secondary">{{response.strGlass}}</span>
+      <span class="badge bg-success">{{response.strAlcoholic}}</span>
     </div>
 
     <div class="row p-3 shadow mt-4" style="width: 1160px;">
       <div class="col-6">
-        <img src="{{recipe.strDrinkThumb}}" alt="cocktail" style="width: 470px;">
+        <img src="{{response.strDrinkThumb}}" alt="cocktail" style="width: 470px;">
       </div>
       <div class="col-6">
         <h4 class="">Ingredients</h4>
+        <ul>
+          {% for ingredient in response.strIngredients %}
+            <li>{{ingredient}}</li>
+          {% endfor %}
+        </ul>
         <p class="">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <a href="#" class="btn btn-primary">Order</a>
         <a href="#" class="btn btn-light">Add to favorites</a>
       </div>
     </div>
   </div>
-
-  {% endfor %}
 
 {% else %}
     <p>No recipes are available.</p>
