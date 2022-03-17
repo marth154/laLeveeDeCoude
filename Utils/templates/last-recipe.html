@@ -1,1 +1,37 @@
-<p>Last recipe</p>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'Utils/css/last-recipe.css' %}" />
+
+{% if latest_recipe %}
+  <div class="container">
+    <ul class="wrapper">
+      {% for recipe in latest_recipe %}
+        <li class="card">
+          <img src="{% static 'Recipe/assets/default-recipe.png' %}" alt="My image">
+            <div class="info-content">
+              {% for category in categories %}
+                {% ifequal category.id recipe.category_id.id %}
+                  <span class="badge pill bg-success badge-pill">{{ category.name }}</span>
+                {% endifequal %}
+              {%endfor%}
+              
+              <h4>{{ recipe.name }}</h4>
+              <hr style="width: 35%">
+              <div class="ingredient-content">
+                {% for ingredient in ingredients %}
+                  {% for group in recipe.ingredient_group.all %}
+                    {% ifequal ingredient group  %}
+                      <pre>{{ ingredient.name }} </pre>
+                    {% endifequal %}
+                  {% endfor %} 
+                {%endfor%}
+              </div>
+            </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% else %}
+  <p>No recipes are available.</p>
+{% endif %}
