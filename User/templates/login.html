@@ -1,20 +1,47 @@
-{% block content %}
+{% block content %} {% load static %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'User/css/bootstrap.min.css' %}"
+/>
 
-<div class="login">
-  <h1>Login</h1>
-  {% if notExisting %}
-  <p>Ce compte n'existe pas</p>
-  {% endif %}
-  <form method="POST">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input type="submit" name="submit" value="Register" /></td>
-      </tr>
-    </table>
-  </form>
+<div class="row">
+  <div
+    class="col"
+    style="
+      overflow: hidden;
+      background-color: #fffbf1;
+      display: flex;
+      justify-content: center;
+    "
+  >
+    <img src="{% static 'User/asset/imageLogin.png' %}" alt="My image" />
+  </div>
+  <div
+    class="col"
+    style="display: flex; align-items: center; flex-direction: column"
+  >
+    <img
+      src="{% static 'User/asset/logo.png' %}"
+      alt="My image"
+      style="width: 250; height: 250"
+    />
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <h1 style="font-weight: 900">Se connecter</h1>
+      {% if notExisting %}
+      <p>Ce compte n'existe pas</p>
+      {% endif %}
+      <form method="POST">
+        {% csrf_token %} {{ form.username.label }} <br />
+        {{ form.username }} <br /><br />
+        {{ form.password.label }} <br />
+        {{ form.password }}
+      </form>
+      <p>
+        Vous n’avez pas de compte ? <a href="/register">Inscrivez-vous !</a>
+      </p>
+    </div>
+  </div>
 </div>
 
 {% endblock content %}
