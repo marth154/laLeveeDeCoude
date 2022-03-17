@@ -1,0 +1,23 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/bootstrap.min.css' %}" />
+
+{% if response %}
+  {% for recipe in response.drinks %}
+    <h1>{{recipe.strDrink}}</h1>
+
+    <div class="card" style="width: 18rem;">
+      <img src="{{recipe.strDrinkThumb}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+
+  {% endfor %}
+
+{% else %}
+    <h2>coucou</h2>
+    <p>No recipes are available.</p>
+{% endif %}
