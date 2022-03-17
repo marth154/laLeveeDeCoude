@@ -5,7 +5,7 @@
   href="{% static 'User/css/bootstrap.min.css' %}"
 />
 
-<div class="row">
+<div class="row" style="max-height: 100vh; margin: 0 !important;">
   <div
     class="col"
     style="
@@ -15,7 +15,7 @@
       justify-content: center;
     "
   >
-    <img src="{% static 'User/asset/imageRegister.png' %}" alt="My image" />
+    <img src="{% static 'User/asset/imageRegister.png' %}" alt="My image" style="max-height: 100vh"/>
   </div>
   <div
     class="col"
@@ -27,18 +27,19 @@
         style="width: 250; height: 250"
       />
 
-      <div style="display: flex; flex-direction: column; align-items: center">
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <h1 style="font-weight: 900">S’inscrire</h1>
         {% if existing %}
         <p>Cet email existe deja</p>
         {% endif %}
         <form method="POST">
           {% csrf_token %}
-          {{ form.username.label }} <br/> {{ form.username }}
+          {{ form.username.label }} <br/> {{form.username}}
           <br /><br />
           {{ form.email.label }} <br/> {{ form.email }}
           <br /><br />
-          {{ form.password.label }} <br/> {{ form.password }}
+          {{ form.password.label }} <br/> {{ form.password }} <br/>
+          <input type="submit" value="S'inscrire" style="background-color: #FD8061; color: white; border: none; padding: 10"/>
         </form>
         <p>Vous avez déjà un compte ? <a href="/login">Connectez-vous !</a></p>
         </form>
