@@ -11,6 +11,8 @@ from django.contrib.auth.forms import UserCreationForm
 def login(request):
     return render(request, 'login.html')
 
+def bar(request):
+    return render(request, 'bar.html')
 
 def register(request):
     if request.method == 'POST':
