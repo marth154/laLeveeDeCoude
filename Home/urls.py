@@ -19,5 +19,4 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="home"),
-    path('', views.latest_recipe_list, name='last-recipe'),
 ]
