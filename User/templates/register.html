@@ -1,12 +1,9 @@
 {% block content %}
 
-<div class="login">
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
+<div class="register">
+  <h1>Register</h1>
+  {% if existing %}
+  <p>Cet email existe deja</p>
   {% endif %}
   <form method="POST">
     {% csrf_token %}
