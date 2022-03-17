@@ -6,14 +6,11 @@
   href="{% static 'Recipe/css/bootstrap.min.css' %}"
 />
 
-{% include "recipe-search.html" %} 
-
-{% if recipes %}
-  <div class="container">
-    {% for recipe in recipes %} 
-      {% include "card-recipe-horizontal.html" with recipe=recipe %}
-    {% endfor %}
-  </div>
+{% include "recipe-search.html" %} {% if recipes %}
+<div class="container">
+  {% for recipe in recipes %} {% include "card-recipe-horizontal.html" with
+  recipe=recipe %} {% endfor %}
+</div>
 {% else %}
 <p>Aucune donnée</p>
 {% endif %}
