@@ -1,11 +1,15 @@
-<p>Coucou les recettes</p>
-{% if recipes %} {% for recipe in recipes %}
-<p>{{recipe.strDrink}}</p>
-<p><strong>Catégorie : </strong>{{recipe.strCategory}}</p>
-<p><strong>Type de verre : </strong>{{recipe.strGlass}}</p>
-<p><strong>Alcoolic : </strong>{{recipe.strAlcoholic}}</p>
+{% load static %}
 
-<strong>Ingrédients : </strong>
-{% for ingredient in recipe.strIngredients %}
-<span>{{ingredient}}</span>
-{% endfor %} {% endfor %} {% endif %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'Recipe/css/bootstrap.min.css' %}"
+/>
+
+{% if recipes %} 
+<div class="container">
+{% for recipe in recipes %} 
+{% include "card-recipe-horizontal.html" with recipe=recipe %} 
+{% endfor %} 
+</div>
+{% endif %}
