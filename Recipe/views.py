@@ -14,7 +14,7 @@ def formatRecipe(recipe):
         if (ing is not None):
             recipeIngredients.append(ing)
             
-    return { 'idDrink': recipe['idDrink'], 'strDrink': recipe['strDrink'], 'strIngredients': recipeIngredients, 'strCategory': recipe['strCategory'], 'strGlass': recipe['strGlass'], 'strInstructions': recipe['strInstructions'], 'strAlcoholic': recipe['strAlcoholic'] }
+    return { 'idDrink': recipe['idDrink'], 'strDrink': recipe['strDrink'], 'strIngredients': recipeIngredients, 'strCategory': recipe['strCategory'], 'strGlass': recipe['strGlass'], 'strInstructions': recipe['strInstructions'], 'strAlcoholic': recipe['strAlcoholic'], 'strDrinkThumb': recipe['strDrinkThumb'] }
 
 def list(request):
     response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a')
@@ -25,6 +25,4 @@ def list(request):
     context = {
         'recipes': finalList,
     }
-    print(finalList)
-    # print(context)
     return render(request, 'recipe-list.html', context)
