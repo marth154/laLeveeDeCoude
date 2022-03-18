@@ -23,6 +23,7 @@ def random(request):
     return render(request, 'random.html', {'response': parsedResponse})
 
 
+
 def formatRecipe(recipe):
     recipeIngredients = []
     for i in range(1, 15):
