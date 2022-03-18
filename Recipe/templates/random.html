@@ -1,29 +1,30 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/main.css' %}" />
 
 {% if response %}
   <div class="container">
-    <h1 class="text-center">{{response.strDrink}}</h1>
+    <h1 class="text-center text-style-h-1">{{response.strDrink}}</h1>
     <div class="text-center">
-      <span class="badge bg-primary">{{response.strCategory}}</span>
-      <span class="badge bg-secondary">{{response.strGlass}}</span>
-      <span class="badge bg-success">{{response.strAlcoholic}}</span>
+      <span class="badge bg-primary text-style-button-text">{{response.strCategory}}</span>
+      <span class="badge bg-secondary text-style-button-text">{{response.strGlass}}</span>
+      <span class="badge bg-success text-style-button-text">{{response.strAlcoholic}}</span>
     </div>
 
-    <div class="row p-3 shadow mt-4" style="width: 1160px;">
+    <div class="row p-3 effect-style-shadow mt-4" style="width: 1160px;">
       <div class="col-6">
         <img src="{{response.strDrinkThumb}}" alt="cocktail" style="width: 470px;">
       </div>
       <div class="col-6">
-        <h4 class="">Ingredients</h4>
+        <h2 class="text-style-heading mb-4">Ingredients</h2>
         <ul>
           {% for ingredient in response.strIngredients %}
-            <li>{{ingredient}}</li>
+            <li class="text-style-paragraph-text">{{ingredient}}</li>
           {% endfor %}
         </ul>
         <p class="">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Order</a>
+        <a href="#" class="btn btn-primary btn-style-accent">Order</a>
         <a href="#" class="btn btn-light">Add to favorites</a>
       </div>
     </div>
