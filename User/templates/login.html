@@ -4,55 +4,42 @@
   type="text/css"
   href="{% static 'User/css/bootstrap.min.css' %}"
 />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'User/css/main.css' %}"
+/>
 
-<div class="row" style="max-height: 100vh; margin: 0 !important">
-  <div
-    class="col"
-    style="
-      overflow: hidden;
-      background-color: #fffbf1;
-      display: flex;
-      justify-content: center;
-    "
-  >
+<div class="row row-main">
+  <div class="col col-left">
     <img
       src="{% static 'User/asset/imageLogin.png' %}"
       alt="My image"
       style="max-height: 100vh"
     />
   </div>
-  <div
-    class="col"
-    style="display: flex; align-items: center; flex-direction: column"
-  >
+  <div class="col col-right">
     <img
       src="{% static 'User/asset/logo.png' %}"
       alt="My image"
       style="width: 250; height: 250"
     />
-    <div
-      style="
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      "
-    >
-      <h1 style="font-weight: 900">Se connecter</h1>
+    <h1 class="text-style-h-1">Se connecter</h1>
+    <div class="form-login">
       {% if notExisting %}
       <p>Ce compte n'existe pas</p>
       {% endif %}
       <form method="POST">
         {% csrf_token %} 
         {{ form.username.label }} <br />
-        {{ form.username }} 
+        {{ form.username }}
         <br /><br />
         {{ form.password.label }} <br />
-        {{ form.password }} <br>
-        <input type="submit" value="Se connecter" style="background-color: #FD8061; color: white; border: none; padding: 10"/>
+        {{ form.password }} <br />
+        <input type="submit" value="Se connecter" class="button-submit text-style-button-text" />
       </form>
       <p>
-        Vous n’avez pas de compte ? <a href="/register">Inscrivez-vous !</a>
+        Vous n’avez pas de compte ? <a href="/register" style="color: #fd8061">Inscrivez-vous !</a>
       </p>
     </div>
   </div>
