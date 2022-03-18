@@ -5,24 +5,11 @@ from django.http import HttpResponse, Http404
 
 from Recipe.forms import SearchForms
 
-
-from requests.adapters import HTTPAdapter
-from urllib3.util import Retry
-
-
-session = requests.Session()
-retry = Retry(connect=3, backoff_factor=0.5)
-adapter = HTTPAdapter(max_retries=retry)
-session.mount('http://', adapter)
-session.mount('https://', adapter)
-
 def random(request):
-    response = session.get('http://www.thecocktaildb.com/api/json/v1/1/random.php').json()
+    response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/random.php').json()
     print('🚀 ~ file: views.py ~ line 7 ~ response', response);
     parsedResponse = formatRecipe(response['drinks'][0])
     return render(request, 'random.html', {'response': parsedResponse})
-
-
 
 def formatRecipe(recipe):
     recipeIngredients = []
