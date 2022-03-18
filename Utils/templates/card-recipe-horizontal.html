@@ -1,35 +1,42 @@
 {% load static %}
+
+
 <link
   rel="stylesheet"
   type="text/css"
   href="{% static 'Utils/css/main.css' %}"
 />
 
-<div class="card">
 
-    <div class="row no-gutters">
-        <div class="col-md-4">
+<div class="card mb-4 mt-1 effect-style-shadow" id="card-recipe-horizontal">
+<a href="/recipe/{{recipe.idDrink}}">
+    <div class="row wrapper-card">
+        <div class="col-md-4 wrapper-image">
           <img src={{recipe.strDrinkThumb}} class="card-img" >
         </div>
         <div class="col-md-8">
           <div class="card-body">
+            <div class="mb-2">
+              <span class="badge bg-primary">{{recipe.strCategory}}</span>
+              <span class="badge bg-secondary">{{recipe.strGlass}}</span>
+              <span class="badge bg-success">{{recipe.strAlcoholic}}</span>
+              </div>
             <p class="card-title text-style-heading">{{recipe.strDrink}}</p>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <p class="card-text"><small class="text-style-small">By TODO</small></p>
+            <p>  
+              <strong>Ingrédients : </strong>
+              {% for ingredient in recipe.strIngredients %}
+              <span>{{ingredient}}</span>
+              {% endfor %}
+            </p>
+            <button class="btn btn-outline-primary">Ajouter aux favoris TODO</button>     
           </div>
         </div>
       </div>
-
+    </a>
 </div>
 
 
 
-<p>{{recipe.strDrink}}</p>
-<p><strong>Catégorie : </strong>{{recipe.strCategory}}</p>
-<p><strong>Type de verre : </strong>{{recipe.strGlass}}</p>
-<p><strong>Alcoolic : </strong>{{recipe.strAlcoholic}}</p>
 
-<strong>Ingrédients : </strong>
-{% for ingredient in recipe.strIngredients %}
-<span>{{ingredient}}</span>
-{% endfor %}
+
