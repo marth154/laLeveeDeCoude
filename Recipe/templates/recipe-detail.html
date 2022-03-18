@@ -1,1 +1,24 @@
-<p>Detail recipe</p>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/main.css' %}" />
+
+{% if response %}
+  {% include "card-recipe-details.html" with response=response %}
+    <div style="background-color: #FFFBF1">
+      <h3>Instructions</h3>
+      <span>{{response.strInstructions}}</span>
+    </div>
+    <div>
+      <h2>Other recipes</h2>
+      {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}
+    </div>
+{% elif recipe %}
+  {% include "card-recipe-details.html" with recipe=recipe categories=categories ingredients=ingredients users=users glasses=glasses %}
+  <div style="background-color: #FFFBF1">
+    <h3>Instructions</h3>
+    <span>{{recipe.steps}}</span>
+  </div>
+{% else %}
+  <p>No details found.</p>
+{% endif %}
