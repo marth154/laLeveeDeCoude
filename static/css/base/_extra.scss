@@ -1,0 +1,99 @@
+// Extra classes for common elements and pages
+body {
+  background-color: $white;
+}
+
+// This hack allows to fill all height of each page and push the <app-footer> to the bottom.
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+app-root {
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+// Cursor styles
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// Hide the cursor for disabled inputs/btn
+.disabled {
+  cursor: none !important;
+}
+
+// Mouse cursor for disabled a/mat-checkbox ex : /programme/6 (Documents)
+.no-drop {
+  cursor: no-drop !important;
+}
+
+// Vertical align
+.align-baseline {
+  vertical-align: baseline !important;
+}
+.align-top {
+  vertical-align: top !important;
+}
+.align-middle {
+  vertical-align: middle !important;
+}
+.align-bottom {
+  vertical-align: bottom !important;
+}
+.align-text-bottom {
+  vertical-align: text-bottom !important;
+}
+.align-text-top {
+  vertical-align: text-top !important;
+}
+
+// Float
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .float#{$infix}-left {
+      float: left !important;
+    }
+    .float#{$infix}-right {
+      float: right !important;
+    }
+    .float#{$infix}-none {
+      float: none !important;
+    }
+  }
+}
+
+// Visibility
+.visible {
+  visibility: visible !important;
+}
+.invisible {
+  visibility: hidden !important;
+}
+
+// Center image background
+.img-bg-center {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+// List styles
+ul.list-unstyled,
+ol.list-unstyled {
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+ul.list-unstyled li,
+ol.list-unstyled li {
+  list-style-type: none;
+}

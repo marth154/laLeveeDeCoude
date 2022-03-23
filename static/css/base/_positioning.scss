@@ -1,0 +1,101 @@
+// Absolute position of elements to origin
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $prop, $abbrev in (top: t, left: l, right: r, bottom: b) {
+      @each $size, $length in $spacers {
+        .#{$abbrev}#{$infix}-#{$size} {
+          #{$prop}: $length !important;
+        }
+        .#{$abbrev}t#{$infix}-#{$size},
+        .#{$abbrev}y#{$infix}-#{$size} {
+          #{$prop}-top: $length !important;
+        }
+        .#{$abbrev}r#{$infix}-#{$size},
+        .#{$abbrev}x#{$infix}-#{$size} {
+          #{$prop}-right: $length !important;
+        }
+        .#{$abbrev}b#{$infix}-#{$size},
+        .#{$abbrev}y#{$infix}-#{$size} {
+          #{$prop}-bottom: $length !important;
+        }
+        .#{$abbrev}l#{$infix}-#{$size},
+        .#{$abbrev}x#{$infix}-#{$size} {
+          #{$prop}-left: $length !important;
+        }
+      }
+    }
+
+    // Negative top, left, right, bottom (e.g., where `.t-n1` is negative version of `.t-1`)
+    @each $size, $length in $spacers {
+      @if $size != 0 {
+        .t#{$infix}-n#{$size} {
+          top: -$length !important;
+        }
+        .r#{$infix}-n#{$size} {
+          right: -$length !important;
+        }
+
+        .b#{$infix}-n#{$size} {
+          bottom: -$length !important;
+        }
+        .l#{$infix}-n#{$size} {
+          left: -$length !important;
+        }
+      }
+    }
+  }
+}
+
+// Depth level for overlapping elements
+.z-index0 {
+  z-index: 0;
+}
+.z-index1 {
+  z-index: 1;
+}
+.z-index2 {
+  z-index: 5;
+}
+.z-index3 {
+  z-index: 10;
+}
+.z-index4 {
+  z-index: 15;
+}
+.z-index5 {
+  z-index: 20;
+}
+
+// Positioning
+.position-static {
+  position: static !important;
+}
+.position-relative {
+  position: relative !important;
+}
+.position-absolute {
+  position: absolute !important;
+}
+.position-fixed {
+  position: fixed !important;
+}
+.position-sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+}
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+.fixed-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+}
