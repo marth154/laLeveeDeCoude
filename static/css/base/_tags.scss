@@ -1,0 +1,31 @@
+@import "./variables";
+
+.tag {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 4px;
+  border-radius: 4px;
+  font-size: $font-size16;
+  &.primary {
+    background-color: $color-primary;
+    color: $white;
+  }
+  &.green {
+    background-color: $green;
+    color: $white;
+  }
+  &.blue {
+    background-color: $blue;
+    color: $white;
+  }
+  &.accent {
+    background-color: $accent;
+    color: $white;
+  }
+  &.accent-middle {
+    background-color: $color-accent-middle;
+    color: $white;
+  }
+}

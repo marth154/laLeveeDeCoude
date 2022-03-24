@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;800;900&family=Quicksand:wght@400;500;700&display=swap");
+
+// General colors (by default)
+$white: white;
+$color-bg-shade: #fffbf1;
+$black: #2e2f37;
+$color-primary: #24997f;
+$color-accent-middle: #fec0a0;
+$color-accent-light: #fbd5d0;
+$accent: #fd8061;
+$green: #59dbb7;
+$orange: #fd8061;
+$lightgreen: rgba(149, 230, 22, 0.05);
+$lightred: rgba(238, 64, 98, 0.05);
+$red: #ee4062;
+$grey: #cecece;
+$dark-green: #146354;
+$lightgrey: #fffbf1;
+$deep-grey: #ced4da;
+$dark-grey: #82889e;
+$blue: #a7c8fd;
+
+// Font families
+$font-base: "Montserrat", sans-serif;
+
+// Font sizes (from px to rem)
+$font-size5: 0.3rem; //custom icon supperpose
+$font-size10: 0.625rem;
+$font-size11: 0.7rem;
+$font-size12: 0.75rem;
+$font-size13: 0.8rem;
+$font-size14: 0.875rem;
+$font-size15: 0.95rem;
+$font-size16: 1rem;
+$font-size17: 1.05rem;
+$font-size18: 1.125rem;
+$font-size19: 1.2rem;
+$font-size20: 1.25rem;
+$font-size21: 1.3rem;
+$font-size22: 1.4rem;
+$font-size24: 1.5rem;
+$font-size26: 1.6rem;
+$font-size32: 2rem;
+$font-size36: 2.25rem;
+$font-size40: 2.45rem;
+$font-size60: 3.75rem;
+$font-size80: 5rem;
+
+// Font weight
+$font-weight-bold: 700;
+$font-weight-semibold: 500;
+$font-weight-normal: 400;
+$font-weight-light: 300;
+
+// Display modes
+$displays: none, inline, inline-block, block, grid, table, table-row, table-cell,
+  flex, inline-flex !default;
+
+// Spacing
+// Control the default styling of most elements by modifying these
+// variables. Mostly focused on spacing.
+$spacer: 1rem !default;
+$spacers: () !default;
+$spacers: map-merge(
+  (
+    0: 0,
+    1: (
+      $spacer * 0.25,
+    ),
+    2: (
+      $spacer * 0.5,
+    ),
+    3: $spacer,
+    4: (
+      $spacer * 1.5,
+    ),
+    5: (
+      $spacer * 3,
+    ),
+    6: (
+      $spacer * 5,
+    ),
+  ),
+  $spacers
+);
+
+// Sizing
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: () !default;
+$sizes: map-merge(
+  (
+    25: 25%,
+    50: 50%,
+    75: 75%,
+    100: 100%,
+    auto: auto,
+  ),
+  $sizes
+);
+
+// Grid breakpoints
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 599px,
+  md: 959px,
+  lg: 1279px,
+  xl: 1919px,
+) !default;
+
+// Define common border radius sizes and more.
+$border-width: 1px !default;
+$border-color: $grey !default;
+$border-radius-btn: 2px !default;
+$border-radius-card: 0.625rem !default;
+$border-radius-min: 0.5em !default;
+$border-radius-lg: 0.625rem !default;
+$border-radius-sm: 0.5rem !default;

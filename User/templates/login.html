@@ -1,46 +1,59 @@
-{% block content %} {% load static %}
+{% block content %} {% load static %} {% load compress %} {% compress css %}
 <link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
   rel="stylesheet"
-  type="text/css"
-  href="{% static 'User/css/bootstrap.min.css' %}"
+  media="screen"
 />
 <link
+  type="text/x-scss"
+  href="{% static 'css/custom/login.scss' %}"
   rel="stylesheet"
-  type="text/css"
-  href="{% static 'User/css/main.css' %}"
+  media="screen"
 />
+{% endcompress %}
 
-<div class="row row-main">
-  <div class="col col-left">
+<div class="custom-size d-md-flex flex-column flex-lg-row w-100">
+  <div class="w-md-100 w-sm-50">
     <img
-      src="{% static 'User/asset/imageLogin.png' %}"
+      src="{% static 'asset/imageLogin.png' %}"
       alt="My image"
-      style="max-height: 100vh"
+      class="h-100 custom-image"
     />
   </div>
-  <div class="col col-right">
-    <img
-      src="{% static 'User/asset/logo.png' %}"
-      alt="My image"
-      style="width: 250; height: 250"
-    />
-    <h1 class="text-style-h-1">Se connecter</h1>
-    <div class="form-login">
-      {% if notExisting %}
-      <p>Ce compte n'existe pas</p>
-      {% endif %}
-      <form method="POST">
-        {% csrf_token %} 
-        {{ form.username.label }} <br />
-        {{ form.username }}
-        <br /><br />
-        {{ form.password.label }} <br />
-        {{ form.password }} <br />
-        <input type="submit" value="Se connecter" class="button-submit text-style-button-text" />
-      </form>
-      <p>
-        Vous n’avez pas de compte ? <a href="/register" style="color: #fd8061">Inscrivez-vous !</a>
-      </p>
+  <div class="w-md-100 w-sm-50">
+    <div
+      class="
+        h-100
+        d-flex
+        flex-column
+        justify-content-center
+        align-content-center align-items-center
+      "
+    >
+      <img
+        src="{% static 'asset/logo.png' %}"
+        alt="My image"
+        style="width: 250; height: 250"
+      />
+      <h1>Se connecter</h1>
+      <div>
+        {% if notExisting %}
+        <p class="error-message">Ce compte n'existe pas</p>
+        {% endif %}
+        <form method="POST">
+          {% csrf_token %}
+          <div class="input__label">{{ form.username.label }}</div>
+          <div class="input__field">{{ form.username }}</div>
+          <div class="input__label">{{ form.password.label }}</div>
+          <div class="input__field">{{ form.password }}</div>
+          <input type="submit" value="Se connecter" class="button primary" />
+        </form>
+        <p>
+          Vous n’avez pas de compte ?
+          <a href="/register">Inscrivez-vous !</a>
+        </p>
+      </div>
     </div>
   </div>
 </div>

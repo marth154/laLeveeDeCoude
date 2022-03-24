@@ -1,0 +1,58 @@
+@import "./variables";
+
+// Background colors
+.bg-accent {
+  background-color: $accent !important;
+}
+.bg-white {
+  background-color: $white !important;
+}
+.bg-color-accent-light {
+  background-color: $color-accent-light !important;
+}
+
+.bg-blue {
+  background-color: $blue !important;
+}
+
+.bg-color-bg-shade {
+  background-color: $color-bg-shade !important;
+}
+
+.bg-color-accent-middle {
+  background-color: $color-accent-middle !important;
+}
+
+.bg-color-primary {
+  background-color: $color-primary !important;
+}
+
+.bg-transparent {
+  background-color: transparent !important;
+}
+
+// Text colors
+.txt-black {
+  color: $black !important;
+}
+.txt-accent {
+  color: $accent !important;
+}
+.txt-white {
+  color: $white !important;
+}
+.txt-color-primary {
+  color: $color-primary !important;
+}
+.txt-color-accent-middle {
+  color: $color-accent-middle !important;
+}
+.txt-green {
+  color: $green !important;
+}
+.txt-red {
+  color: $red !important;
+}
+.txt-dark-green {
+  color: $dark-green !important;
+}
