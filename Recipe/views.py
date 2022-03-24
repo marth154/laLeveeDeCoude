@@ -1,15 +1,34 @@
-from operator import concat
 from django.shortcuts import render
+from urllib3.util import Retry
 import requests
-from django.http import HttpResponse, Http404
-
+from requests.adapters import HTTPAdapter
+from django.http import Http404
+from Recipe.models import Recipe, Category, Glass, Ingredient, User
 from Recipe.forms import SearchForms
+
+session = requests.Session()
+retry = Retry(connect=3, backoff_factor=0.5)
+adapter = HTTPAdapter(max_retries=retry)
+session.mount('http://', adapter)
+session.mount('https://', adapter)
+
+# TODO à mettre dans les def qui utilise c'est model 
+def get_recipe():
+    latest_recipe = Recipe.objects.order_by('created_at')[:4]
+    categories = Category.objects.all()
+    glasses = Glass.objects.all()
+    users = User.objects.all()
+    ingredients = Ingredient.objects.all()
+    context = {"latest_recipe": latest_recipe, "categories": categories, "ingredients": ingredients, "glasses": glasses, "users": users}
+    return context
 
 def random(request):
     response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/random.php').json()
     print('🚀 ~ file: views.py ~ line 7 ~ response', response);
     parsedResponse = formatRecipe(response['drinks'][0])
-    return render(request, 'random.html', {'response': parsedResponse})
+    latest_recipe = Recipe.objects.order_by('created_at')[:4]
+    context = {'latest_recipe': latest_recipe, 'response': parsedResponse}
+    return render(request, 'recipe-detail.html', context)
 
 def formatRecipe(recipe):
     recipeIngredients = []
@@ -54,3 +73,17 @@ def list(request):
         }
 
     return render(request, 'recipe-list.html', context)
+
+def recipeDetail(request, id):
+    try:
+        recipe = Recipe.objects.get(pk=id)
+        latest_recipe = Recipe.objects.order_by('created_at')[:4]
+        categories = Category.objects.all()
+        glasses = Glass.objects.all()
+        users = User.objects.all()
+        ingredients = Ingredient.objects.all()
+        context = {'recipe': recipe, "latest_recipe": latest_recipe, "categories": categories, "ingredients": ingredients, "glasses": glasses, "users": users}
+
+    except Recipe.DoesNotExist:
+        raise Http404("Recipe does not exist")
+    return render(request, 'recipe-detail.html', context)

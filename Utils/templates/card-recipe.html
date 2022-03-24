@@ -1,1 +1,43 @@
-<p>Card recipe</p>
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+<link
+  type="text/x-scss"
+  href="{% static 'css/custom/recipe-detail.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+{% endcompress %}
+
+<li class="card">
+  <a href="recipe/{{recipe.id}}" style="text-decoration: none; color: initial">
+    <img
+      src="{% static 'asset/default-recipe.png' %}"
+      alt="My image"
+    />
+    <div class="flex flex-column align-items-center mt-3">
+      {% for category in categories %}
+          {% ifequal category.id recipe.category_id.id %}
+              <span class="badge pill bg-${color-primary} badge">{{ category.name }}</span>
+          {% endifequal %}
+      {% endfor %}
+      <h4>{{ recipe.name }}</h4>
+      <hr style="width: 35%; margin: 10px auto;" />
+
+      <div class="ingredient-content fontSize13">
+          {% for ingredient in ingredients %}
+              {% for group in recipe.ingredient_group.all %}
+                  {% ifequal ingredient group %}
+                      <pre>{{ ingredient.name }} </pre>
+                  {% endifequal %}
+              {% endfor %}
+          {% endfor %}
+      </div>
+    </div>
+  </a>
+</li>
+{% endblock content %}

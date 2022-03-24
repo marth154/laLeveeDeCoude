@@ -1,4 +1,16 @@
-<div>
-    {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}    
+{% comment %} {% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+{% endcompress %} {% endcomment %}
+
+<div >
+    <a href="recipe/random"><button type="button" class="primary">Cocktail Surprise</button></a>  
+    {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}
 </div>
+
+{% comment %} {% endblock content %} {% endcomment %}
     

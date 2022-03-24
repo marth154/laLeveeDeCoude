@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from Recipe.models import Category, Ingredient, Recipe, User
+from django.http import Http404
+from django.shortcuts import render
 
 from django.contrib.auth.decorators import login_required
 # Create your views here.
