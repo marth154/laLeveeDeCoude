@@ -1,6 +1,7 @@
 // Global links
 a {
   cursor: pointer;
+  text-decoration: none;
   color: $accent !important;
   &:hover {
     text-decoration: underline;
@@ -57,6 +58,11 @@ input.button {
     background-color: $white !important;
     color: $accent !important;
     transition: all 0.3s ease-in-out;
+    &:hover {
+      border: 1px solid transparent;
+      background-color: $accent !important;
+      color: $white !important;
+    }
   }
 
   &.no-style {

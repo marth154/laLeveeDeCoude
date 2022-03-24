@@ -10,12 +10,16 @@ h2 {
   font-weight: 700;
   line-height: 160%;
   letter-spacing: 0.015em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 h1 {
   font-size: $font-size60 !important;
   font-weight: 900;
   line-height: 160%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 @media (max-width: 599px) {

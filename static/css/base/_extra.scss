@@ -97,3 +97,51 @@ ul.list-unstyled li,
 ol.list-unstyled li {
   list-style-type: none;
 }
+
+
+
+
+// Pagination
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+      
+.pagination {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+      
+.pagination li {
+  margin: 0 1px;
+  border: 1px solid $grey;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.active {
+    padding: 1rem;
+    background-color:$color-primary !important;
+    color: $white !important;
+  }
+  a {
+    display:block;
+    padding: 1rem;
+    color: $color-primary !important;
+    &:hover {
+      text-decoration: none !important;
+    }
+
+  }
+  &:hover {
+    background-color:$color-primary !important;
+    color: $white !important;
+    a {
+      color: $white !important;
+    }
+  }
+}
+  

@@ -6,6 +6,14 @@ from django.http import Http404
 from Recipe.models import Recipe, Category, Glass, Ingredient, User
 from Recipe.forms import SearchForms
 
+from operator import concat
+
+import requests
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import render
+
+from Recipe.forms import SearchForms
+
 session = requests.Session()
 retry = Retry(connect=3, backoff_factor=0.5)
 adapter = HTTPAdapter(max_retries=retry)
@@ -42,6 +50,7 @@ def formatRecipe(recipe):
 
 def list(request):
     form = SearchForms()
+    
     if request.method == "POST":
         query = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + \
             request.POST.get("name")
@@ -67,9 +76,19 @@ def list(request):
         finalList = []
         for i in range(len(parsed['drinks'])):
             finalList.append(formatRecipe(parsed['drinks'][i]))
+
+        paginator = Paginator(finalList, 10)
+        page = request.GET.get('page', 1)
+        try:
+            paginateList = paginator.page(page)
+        except PageNotAnInteger:
+            paginateList = paginator.page(1)
+        except EmptyPage:
+            paginateList = paginator.page(paginator.num_pages)
+            
         context = {
             'form': form,
-            'recipes': finalList,
+            'recipes': paginateList,
         }
 
     return render(request, 'recipe-list.html', context)

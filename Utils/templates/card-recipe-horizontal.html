@@ -1,35 +1,45 @@
 {% load static %}
+
+{% load compress %} {% compress css %}
 <link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
   rel="stylesheet"
-  type="text/css"
-  href="{% static 'Utils/css/main.css' %}"
+  media="screen"
 />
 
-<div class="card">
+<link
+  type="text/x-scss"
+  href="{% static 'css/custom/card-recipe-horizontal.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+{% endcompress %}
 
-    <div class="row no-gutters">
-        <div class="col-md-4">
-          <img src={{recipe.strDrinkThumb}} class="card-img" >
+<div  class="custom-card p-4 mb-4">
+<a href="/recipe/{{recipe.idDrink}}">
+    <div class="d-flex">
+        <div class="custom-wrapper-image">
+          <img src={{recipe.strDrinkThumb}} >
         </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <p class="card-title text-style-heading">{{recipe.strDrink}}</p>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
+        <div class="ml-4">
+            <div class="d-flex">
+              <span class="tag accent-middle mr-2">{{recipe.strCategory}}</span>
+              <span class="tag blue mr-2">{{recipe.strGlass}}</span>
+              <span class="tag green mr-2">{{recipe.strAlcoholic}}</span>
+              </div>
+            <h2>{{recipe.strDrink}}</h2>
+            <p ><small>By TODO</small></p>
+            <p>  
+              <strong>Ingrédients : </strong>
+              {% for ingredient in recipe.strIngredients %}
+              <span>{{ingredient}}</span>
+              {% endfor %}
+            </p>
+            <button class="btn secondary">Ajouter aux favoris TODO</button>     
         </div>
       </div>
-
+    </a>
 </div>
 
 
-
-<p>{{recipe.strDrink}}</p>
-<p><strong>Catégorie : </strong>{{recipe.strCategory}}</p>
-<p><strong>Type de verre : </strong>{{recipe.strGlass}}</p>
-<p><strong>Alcoolic : </strong>{{recipe.strAlcoholic}}</p>
-
-<strong>Ingrédients : </strong>
-{% for ingredient in recipe.strIngredients %}
-<span>{{ingredient}}</span>
-{% endfor %}
