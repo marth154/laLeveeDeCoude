@@ -1,11 +1,21 @@
-{% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/bootstrap.min.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/main.css' %}" />
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+<link
+  type="text/x-scss"
+  href="{% static 'css/custom/recipe-detail.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+{% endcompress %}
 
 {% if response %}
   {% include "card-recipe-details.html" with response=response %}
-    <div style="background-color: #FFFBF1">
+    <div class="bg-color-bg-shade">
       <h3>Instructions</h3>
       <span>{{response.strInstructions}}</span>
     </div>
@@ -15,10 +25,11 @@
     </div>
 {% elif recipe %}
   {% include "card-recipe-details.html" with recipe=recipe categories=categories ingredients=ingredients users=users glasses=glasses %}
-  <div style="background-color: #FFFBF1">
+  <div class="bg-color-bg-shade">
     <h3>Instructions</h3>
     <span>{{recipe.steps}}</span>
   </div>
 {% else %}
   <p>No details found.</p>
 {% endif %}
+{% endblock content %}

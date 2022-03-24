@@ -1,73 +1,83 @@
-{% load static %}
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+<link
+  type="text/x-scss"
+  href="{% static 'css/custom/recipe-detail.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+{% endcompress %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/bootstrap.min.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'Recipe/css/main.css' %}" />
-
-<div class="card card-horizontal">
-    <h1 class="text-center text-style-h-1">{{ recipe.name }}{{response.strDrink}}</h1>
+<div class="justify-content-center card-horizontal">
+    <div style="display: grid; text-align: center;">
+    <h1 >{{ recipe.name }}{{response.strDrink}}</h1>
     {% for user in users %}
         {% ifequal user.pk recipe.user_id.pk %}
-            <p class="text-center">by {{ user.username }}</p>
+            <p>by {{ user.username }}</p>
         {% endifequal %}
     {% endfor %}
 
-    <div class="text-center">
+    <div>
         {% for category in categories %}
             {% ifequal category.id recipe.category_id.id %}
-                <span class="badge bg-primary text-style-button-text">{{ category.name }}</span>
+                <span class="badge bg-color-primary">{{ category.name }}</span>
             {% endifequal %}
         {% endfor %}
   
         {% for glass in glasses %}
             {% ifequal glass.id recipe.glass_id.id %}
-                <span class="badge bg-secondary text-style-button-text">{{ glass.name }}</span>
+                <span class="badge bg-blue">{{ glass.name }}</span>
             {% endifequal %}
         {% endfor %}
 
         {% if recipe %}
-            <span class="badge bg-success text-style-button-text">{% if recipe.is_alcoholic%}Alcoholic{% else %}Non alcoholic{% endif %}</span>
+            <span class="badge bg-color-accent-middle">{% if recipe.is_alcoholic%}Alcoholic{% else %}Non alcoholic{% endif %}</span>
         {% elif response %}
-            <span class="badge bg-primary text-style-button-text">{{response.strCategory}}</span>
-            <span class="badge bg-secondary text-style-button-text">{{response.strGlass}}</span>
-            <span class="badge bg-success text-style-button-text">{{response.strAlcoholic}}</span>
+            <span class="badge bg-primary">{{response.strCategory}}</span>
+            <span class="badge bg-blue">{{response.strGlass}}</span>
+            <span class="badge bg-color-accent-middle">{{response.strAlcoholic}}</span>
         {% endif %}
 
     </div>
+    </div>
 
-    <div class="row p-3 effect-style-shadow mt-4" style="width: 1160px;">
+    <div style="display: flex; gap: 26px" class="card flex-row p-3 effect-style-shadow mt-4">
         {%if recipe %}
-        <div class="col-6">
-            <img src="{% static 'Recipe/assets/default-recipe.png' %}" alt="cocktail" style="width: 470px;" />
-        </div>
-        <div class="col-6">
-            <h2 class="text-style-heading mb-4">Ingredients</h2>
-                <ul>                        
-                    {% for ingredient in ingredients %}
-                        {% for group in recipe.ingredient_group.all %}
-                            {% ifequal ingredient group %}
-                                <li class="text-style-paragraph-text">{{ ingredient.name }} </li>
-                            {% endifequal %}
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            <a href="#" class="btn btn-primary btn-style-accent">Order</a>
-            <a href="#" class="btn btn-light">Add to favorites</a>
-        </div>
-        {%else %}
-        <div class="col-6">
-            <img src="{{response.strDrinkThumb}}" alt="cocktail" style="width: 470px;">
-        </div>
-        <div class="col-6">
-            <h2 class="text-style-heading mb-4">Ingredients</h2>
-            <ul>
-                {% for ingredient in response.strIngredients %}
-                <li class="text-style-paragraph-text">{{ingredient}}</li>
+        <img src="{% static 'asset/default-recipe.png' %}" alt="cocktail" style="width: 470px;" />
+        <div>
+            <h2 class="mb-4">Ingredients</h2>
+            <ul>                        
+                {% for ingredient in ingredients %}
+                {% for group in recipe.ingredient_group.all %}
+                {% ifequal ingredient group %}
+                <li>{{ ingredient.name }} </li>
+                {% endifequal %}
+                {% endfor %}
                 {% endfor %}
             </ul>
-            <a href="#" class="btn btn-primary btn-style-accent">Order</a>
-            <a href="#" class="btn btn-light">Add to favorites</a>
+            <a href="#" class="button primary">Order</a>
+            <a href="#" class="button secondary">Add to favorites</a>
+        </div>
+        {%else %}
+        <img src="{{response.strDrinkThumb}}" alt="cocktail" style="width: 470px;">
+        <div>
+
+            <h2 class="mb-4">Ingredients</h2>
+            <ul>
+                {% for ingredient in response.strIngredients %}
+                <li>{{ingredient}}</li>
+                {% endfor %}
+            </ul>
+            <a href="#" class="button primary">Order</a>
+            <a href="#" class="button secondary">Add to favorites</a>
         </div>
         {%endif %}
     </div>
 
 </div>
+{% endblock content %}

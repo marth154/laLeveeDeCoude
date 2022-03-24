@@ -1,18 +1,20 @@
-{% load static %}
+{% block content %} {% load static %} {% load compress %} {% compress css %}
 <link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
   rel="stylesheet"
-  type="text/css"
-  href="{% static 'Recipe/css/bootstrap.min.css' %}"
+  media="screen"
 />
 <link
   rel="stylesheet"
   type="text/css"
-  href="{% static 'css/last-recipe.css' %}"
+  href="{% static 'css/custom/recipe-detail.scss' %}"
 />
+{% endcompress %}
 
 {% if latest_recipe %}
-  <div class="container">
-    <ul class="wrapper">
+  <div class="grid-column4 grid-row${1}">
+    <ul class="flex-row justify-content-center wrapper">
       {% for recipe in latest_recipe %}
         {% include "card-recipe.html" with recipe=recipe categories=categories ingredient=ingredients %} 
       {% endfor %}
@@ -21,3 +23,5 @@
 {% else %}
   <p>No recipes are available.</p>
 {% endif %}
+
+{% endblock content %}

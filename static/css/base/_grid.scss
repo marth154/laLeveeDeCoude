@@ -1,8 +1,8 @@
-@mixin grid($grid-type, $args, $row-gap, $column-gap: $row-gap) {
+@mixin grid($grid-type, $args, $column-gap: $row-gap) {
   @supports (display: grid) {
     display: grid !important;
     #{$grid-type}: #{$args} !important;
-    grid-gap: rem($row-gap) rem($column-gap) !important;
+    gap: rem($column-gap) !important;
   }
 }
 
@@ -23,7 +23,6 @@ $column-numbers: (
         @include grid(
           "grid-template-columns",
           "repeat(#{$column-number}, 1fr)",
-          10px,
           15px
         );
       }
@@ -32,7 +31,6 @@ $column-numbers: (
         @include grid(
           "grid-template-rows",
           "repeat(#{$column-number}, 1fr)",
-          10px,
           15px
         );
       }
