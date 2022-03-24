@@ -23,22 +23,15 @@
   </div>
   <div class="w-md-100 w-sm-50">
     <div
-      class="
-        h-100
-        d-flex
-        flex-column
-        justify-content-center
-        align-content-center align-items-center
-      "
+      class="h-100 d-flex flex-column justify-content-center align-content-center align-items-center"
     >
       <img
+        class="m-3"
         src="{% static 'asset/logo.png' %}"
         alt="Logo La levée de coude"
         style="width: 250; height: 250"
       />
-      <hr class="hr-small" />
-      <h1>Créer un compte</h1>
-      <div class="tag accent-middle">Catégorie</div>
+      <h1 class="m-0">Créer un compte</h1>
       <div>
         {% if existing %}
         <p class="error-message">Cet email existe deja</p>
@@ -47,6 +40,8 @@
           {% csrf_token %}
           <div class="input__label">{{ form.username.label }}</div>
           <div class="input__field">{{ form.username }}</div>
+          <div class="input__label">{{ form.email.label }}</div>
+          <div class="input__field">{{ form.email }}</div>
           <div class="input__label">{{ form.password.label }}</div>
           <div class="input__field">{{ form.password }}</div>
           <input type="submit" value="S'inscrire" class="button primary" />

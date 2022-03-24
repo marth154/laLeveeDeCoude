@@ -4,7 +4,7 @@ from Recipe.models import Category, Ingredient, Recipe, User
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-@login_required(login_url="/login")
+#@login_required(login_url="/login")
 def home(request):
     latest_recipe = Recipe.objects.order_by('created_at')[:4]
     categories = Category.objects.all()
