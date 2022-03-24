@@ -1,11 +1,17 @@
-<p>Coucou les recettes</p>
-{% if recipes %} {% for recipe in recipes %}
-<p>{{recipe.strDrink}}</p>
-<p><strong>Catégorie : </strong>{{recipe.strCategory}}</p>
-<p><strong>Type de verre : </strong>{{recipe.strGlass}}</p>
-<p><strong>Alcoolic : </strong>{{recipe.strAlcoholic}}</p>
+{% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+{% endcompress %}
 
-<strong>Ingrédients : </strong>
-{% for ingredient in recipe.strIngredients %}
-<span>{{ingredient}}</span>
-{% endfor %} {% endfor %} {% endif %}
+<div class="container">
+{% include "recipe-search.html" %} {% if recipes %}
+  {% for recipe in recipes %} {% include "card-recipe-horizontal.html" with
+  recipe=recipe %} {% endfor %}
+{% else %}
+<p>Aucune donnée</p>
+{% endif %}
+</div>

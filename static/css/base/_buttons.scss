@@ -1,6 +1,7 @@
 // Global links
 a {
   cursor: pointer;
+  text-decoration: none;
   color: $accent !important;
   &:hover {
     text-decoration: underline;
