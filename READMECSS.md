@@ -56,8 +56,9 @@ TODO DOC
 
 ## Shadows
 
-TODOCSS
+`.shadow-none`
 
+`.shadow-card`
 ## Display
 
 TODO DOC

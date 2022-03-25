@@ -3,9 +3,10 @@ a {
   cursor: pointer;
   text-decoration: none;
   color: $accent !important;
-  &:hover {
-    text-decoration: underline;
-  }
+}
+
+a.underline-hover:hover {
+  text-decoration: underline;
 }
 
 // Personalized buttons
@@ -48,14 +49,14 @@ input.button {
 
     &:hover {
       border: 1px solid $accent;
-      background-color: $white !important;
+      background-color: transparent !important;
       color: $accent !important;
     }
   }
 
   &.secondary {
     border: 1px solid $accent;
-    background-color: $white !important;
+    background-color: transparent !important;
     color: $accent !important;
     transition: all 0.3s ease-in-out;
     &:hover {
@@ -81,3 +82,4 @@ input.button {
     user-select: none;
   }
 }
+
