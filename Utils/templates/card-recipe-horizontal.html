@@ -36,7 +36,13 @@
               <span>{{ingredient}}</span>
               {% endfor %}
             </p>
-            <button class="btn secondary">Ajouter aux favoris TODO</button>     
+            <form method="POST">
+              {% if recipe.is_favorite %}
+                  <button type="submit" name="remove" value="{{recipe.idDrink}}" class="button secondary">Remove to favorites</button>
+              {% else %}
+                  <button type="submit" name="add" value="{{recipe.idDrink}}" class="button secondary">Add to favorites</button>
+              {% endif %}
+            </form>
         </div>
       </div>
     </a>

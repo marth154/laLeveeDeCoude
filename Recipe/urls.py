@@ -21,6 +21,6 @@ from . import views
 urlpatterns = [
     path('list/', views.list, name='list'),
     path('random/', views.random, name='recipeDetail'),
-    path('<int:id>/', views.recipeDetail, name='recipeDetail'),
+    path('<int:id>/', views.recipe_detail, name='recipeDetail'),
 ]
 

@@ -48,15 +48,16 @@
             <h2 class="mb-4">Ingredients</h2>
             <ul>                        
                 {% for ingredient in ingredients %}
-                {% for group in recipe.ingredient_group.all %}
-                {% ifequal ingredient group %}
-                <li>{{ ingredient.name }} </li>
-                {% endifequal %}
-                {% endfor %}
+                <li>{{ ingredient.ingredient.name }} : {{ingredient.quantity}} </li>
                 {% endfor %}
             </ul>
-            <a href="#" class="button primary">Order</a>
-            <a href="#" class="button secondary">Add to favorites</a>
+            <form method="POST">
+                {% if is_favorite %}
+                    <button type="submit" name="remove" value="true" class="button secondary">Remove to favorites</button>
+                {% else %}
+                    <button type="submit" name="add" value="true" class="button secondary">Add to favorites</button>
+                {% endif %}
+            </form>
         </div>
         {%else %}
         <img src="{{response.strDrinkThumb}}" alt="cocktail" style="width: 470px;">
@@ -68,8 +69,13 @@
                 <li>{{ingredient}}</li>
                 {% endfor %}
             </ul>
-            <a href="#" class="button primary">Order</a>
-            <a href="#" class="button secondary">Add to favorites</a>
+            <form method="POST">
+                {% if is_favorite %}
+                    <button type="submit" name="remove" value="true" class="button secondary">Remove to favorites</button>
+                {% else %}
+                    <button type="submit" name="add" value="true" class="button secondary">Add to favorites</button>
+                {% endif %}
+            </form>
         </div>
         {%endif %}
     </div>

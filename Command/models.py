@@ -1,5 +1,5 @@
 from django.db import models
-from User.models import User
+from django.contrib.auth.models import User
 from Ingredient.models import Ingredient
 
 # Create your models here.

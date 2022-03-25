@@ -32,3 +32,4 @@ dist/
 .idea/
 
 static/CACHE/
+dq.sqlite3
