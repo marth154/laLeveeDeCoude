@@ -236,3 +236,5 @@ def paginator(request, recipes_list):
         paginateList = paginator.page(paginator.num_pages)
 
     return paginateList
+def add(request):
+    return render(request, 'recipe-add.html')
