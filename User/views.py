@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 # from .models import User
 from django.contrib.auth.models import User
+
+from Recipe.models import Recipe
 from .forms import RegisterForms, LoginForms
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
@@ -55,6 +57,18 @@ def registerCredentials(request):
         }
         return render(request, 'register.html', context)
 
-
 def bar(request):
     return render(request, 'bar.html')
+
+def drinks_user(request):
+
+    drinks_by_user_query = Recipe.objects.filter(user_id=request.user.id)
+    drinks_by_user = []
+    for drink in drinks_by_user_query:
+        drinks_by_user.append(drink)
+    
+    context = {'drinks_by_user': drinks_by_user}
+    return render(request, 'drinks-user.html', context)
+
+def favorites_user(request):
+    return render(request, 'favorites-user.html')
