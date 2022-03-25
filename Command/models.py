@@ -1,6 +1,6 @@
 from django.db import models
 from User.models import User
-from Recipe.models import Ingredient
+from Ingredient.models import Ingredient
 
 # Create your models here.
 

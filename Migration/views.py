@@ -1,8 +1,8 @@
 from django.shortcuts import render
 import requests
-from Recipe.models import Glass, Category, Ingredient_Group, Recipe
+from Recipe.models import Glass, Category, Recipe
 from django.contrib.auth.models import User
-from Recipe.models import Ingredient
+from Ingredient.models import Ingredient, Ingredient_Group
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
@@ -111,8 +111,8 @@ def import_category():
 
 @login_required(login_url="/login")
 def import_data(request):
-    # import_glass()
-    # import_category()
-    # import_ingredients()
-    # import_recipe(request)
+    import_glass()
+    import_category()
+    import_ingredients()
+    import_recipe(request)
     return render(request, 'migration.html')
