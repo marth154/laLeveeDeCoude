@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from Recipe.models import Category, Ingredient, Recipe, User
+from Recipe.models import Category, Recipe, User
+from Ingredient.models import Ingredient
 from django.http import Http404
 from django.shortcuts import render
 

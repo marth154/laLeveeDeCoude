@@ -3,8 +3,9 @@ from urllib3.util import Retry
 import requests
 from requests.adapters import HTTPAdapter
 from django.http import Http404
-from Recipe.models import Recipe, Category, Glass, Ingredient, User
+from Recipe.models import Recipe, Category, Glass, User
 from Recipe.forms import SearchForms
+from Ingredient.models import Ingredient
 
 from operator import concat
 
