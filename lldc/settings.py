@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'User',
     'Recipe',
     'Ingredient',
+    "Migration",
     'Command',
     'compressor'
 ]
