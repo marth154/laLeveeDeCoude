@@ -47,16 +47,23 @@
         <div>
             <h2 class="mb-4">Ingredients</h2>
             <ul>                        
-                {% for ingredient in ingredients %}
+                <!-- {% for ingredient in ingredients %}
                 {% for group in recipe.ingredient_group.all %}
                 {% ifequal ingredient group %}
                 <li>{{ ingredient.name }} </li>
                 {% endifequal %}
                 {% endfor %}
+                {% endfor %} -->
+                {% for ingredient in ingredients %}
+                <li>{{ ingredient.ingredient.name }} : {{ingredient.quantity}} </li>
                 {% endfor %}
             </ul>
             <form method="POST">
-                <button type="submit" class="button secondary">Add to favorites</button>
+                {% if is_favorite %}
+                    <button type="submit" name="remove" value="true" class="button secondary">Remove to favorites</button>
+                {% else %}
+                    <button type="submit" name="add" value="true" class="button secondary">Add to favorites</button>
+                {% endif %}
             </form>
         </div>
         {%else %}
@@ -69,15 +76,13 @@
                 <li>{{ingredient}}</li>
                 {% endfor %}
             </ul>
-            {% if is_favorite %}
-                <form method="POST" value="remove">
-                    <button type="submit" value="remove" class="button secondary">Remove to favorites</button>
-                </form>
-            {% else %}
-                <form method="POST" value="add">
-                    <input type="submit" name="add" value="add" class="button secondary">Add to favorites</input>
-                </form>
-            {% endif %}
+            <form method="POST">
+                {% if is_favorite %}
+                    <button type="submit" name="remove" value="true" class="button secondary">Remove to favorites</button>
+                {% else %}
+                    <button type="submit" name="add" value="true" class="button secondary">Add to favorites</button>
+                {% endif %}
+            </form>
         </div>
         {%endif %}
     </div>
