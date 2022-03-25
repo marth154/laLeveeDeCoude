@@ -69,10 +69,15 @@
                 <li>{{ingredient}}</li>
                 {% endfor %}
             </ul>
-            <!-- <a href="#" class="button primary">Order</a> -->
-            <form>
-                <button type="submit" class="button secondary">Add to favorites</button>
-            </form>
+            {% if is_favorite %}
+                <form method="POST" value="remove">
+                    <button type="submit" value="remove" class="button secondary">Remove to favorites</button>
+                </form>
+            {% else %}
+                <form method="POST" value="add">
+                    <input type="submit" name="add" value="add" class="button secondary">Add to favorites</input>
+                </form>
+            {% endif %}
         </div>
         {%endif %}
     </div>

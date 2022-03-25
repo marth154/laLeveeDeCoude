@@ -177,11 +177,16 @@ def list(request):
 
 def recipeDetail(request, id):
     if(request.method == 'POST'):
-        recipe = Recipe.objects.get(pk=id)
-        user = User.objects.filter(username=request.user)
-        print(user)
-        new_fav = Favorite.objects.create(user=user,recipe=recipe)
-        print(new_fav)
+        print(request.POST)
+        if(request.POST.get('remove')):
+            recipe = Recipe.objects.get(pk=id)
+            user = User.objects.filter(username=request.user)
+            Favorite.objects.get(user=user,recipe=recipe).delete()
+        elif(request.POST.get('add')):
+            print(request.POST.get('add'))
+            recipe = Recipe.objects.get(pk=id)
+            user = User.objects.filter(username=request.user)
+            Favorite.objects.create(user=user,recipe=recipe)
     try:
         recipe = Recipe.objects.get(pk=id)
         latest_recipe = Recipe.objects.order_by('created_at')[:4]
