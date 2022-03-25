@@ -14,6 +14,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 
 from Recipe.forms import SearchForms
+from User.models import Favorite
 
 
 # TODO à mettre dans les def qui utilise c'est model 
@@ -175,6 +176,12 @@ def list(request):
     return render(request, 'recipe-list.html', context)
 
 def recipeDetail(request, id):
+    if(request.method == 'POST'):
+        recipe = Recipe.objects.get(pk=id)
+        user = User.objects.filter(username=request.user)
+        print(user)
+        new_fav = Favorite.objects.create(user=user,recipe=recipe)
+        print(new_fav)
     try:
         recipe = Recipe.objects.get(pk=id)
         latest_recipe = Recipe.objects.order_by('created_at')[:4]

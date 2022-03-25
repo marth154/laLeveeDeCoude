@@ -55,8 +55,9 @@
                 {% endfor %}
                 {% endfor %}
             </ul>
-            <a href="#" class="button primary">Order</a>
-            <a href="#" class="button secondary">Add to favorites</a>
+            <form method="POST">
+                <button type="submit" class="button secondary">Add to favorites</button>
+            </form>
         </div>
         {%else %}
         <img src="{{response.strDrinkThumb}}" alt="cocktail" style="width: 470px;">
@@ -68,8 +69,10 @@
                 <li>{{ingredient}}</li>
                 {% endfor %}
             </ul>
-            <a href="#" class="button primary">Order</a>
-            <a href="#" class="button secondary">Add to favorites</a>
+            <!-- <a href="#" class="button primary">Order</a> -->
+            <form>
+                <button type="submit" class="button secondary">Add to favorites</button>
+            </form>
         </div>
         {%endif %}
     </div>
