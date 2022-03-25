@@ -228,3 +228,6 @@ def checked_favorite(user, recipe):
             return False
     except:
         return None
+
+def add(request):
+    return render(request, 'recipe-add.html')

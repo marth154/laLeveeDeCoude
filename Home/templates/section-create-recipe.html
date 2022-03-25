@@ -1,0 +1,33 @@
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+<link
+  type="text/x-scss"
+  href="{% static 'css/custom/section-create-recipe.scss' %}"
+  rel="stylesheet"
+  media="screen"
+/>
+{% endcompress %}
+<div
+  class="container-section pt-6 pb-6 justify-content-center align-items-center bg-color-bg-shade"
+>
+  <img
+    class="m-3"
+    src="{% static 'asset/section-create-recipe.png' %}"
+    alt="My image"
+  />
+  <div class="ml-6" style="max-width: 400px">
+    <h2 class="mb-4">Compose ta propre recette !</h2>
+    <p class="mb-4">
+      Choisis tes ingrédients, donne les étapes et partage ta recette
+    </p>
+    <a href="recipe/add">
+        <button type="button" class="primary">Composer</button>
+    </a>
+  </div>
+</div>
+{% endblock content %}
