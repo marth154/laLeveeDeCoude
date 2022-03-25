@@ -5,7 +5,7 @@ from User.models import User
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=250)
-    description = models.CharField(max_length=500, null=True)
+    description = models.CharField(max_length=100000, null=True)
     # price = models.IntegerField()
     is_alcoholic = models.BooleanField(default=True)
 
