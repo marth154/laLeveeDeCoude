@@ -47,13 +47,6 @@
         <div>
             <h2 class="mb-4">Ingredients</h2>
             <ul>                        
-                <!-- {% for ingredient in ingredients %}
-                {% for group in recipe.ingredient_group.all %}
-                {% ifequal ingredient group %}
-                <li>{{ ingredient.name }} </li>
-                {% endifequal %}
-                {% endfor %}
-                {% endfor %} -->
                 {% for ingredient in ingredients %}
                 <li>{{ ingredient.ingredient.name }} : {{ingredient.quantity}} </li>
                 {% endfor %}
