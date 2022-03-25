@@ -21,14 +21,13 @@ def import_glass():
 
 
 def import_recipe(request):
-    loop = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
-            'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '9', '8', '7', '6', '5', '4', '3', '2', '1']
+    # Creating a table to loop through all the letters of the alphabet and numbers
+    loop = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '9', '8', '7', '6', '5', '4', '3', '2', '1']
     recipes = Recipe.objects.filter(is_migrate=True)
     if(recipes):
         recipes.delete()
         print("Drop Recipe")
     for i in loop:
-        print(i)
         response = requests.get(
             "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=" + str(i)).json()
         if(response['drinks']):
@@ -67,7 +66,6 @@ def import_recipe(request):
                 )
 
                 for j in range(1, 15):
-                    # MEASURE
                     ing = response['drinks'][k]['strIngredient' + str(j)]
                     measure = response['drinks'][k]['strMeasure' + str(j)]
                     if(ing is not None and measure is not None):
@@ -113,8 +111,8 @@ def import_category():
 
 @login_required(login_url="/login")
 def import_data(request):
-    import_glass()
-    import_category()
-    import_ingredients()
-    import_recipe(request)
+    # import_glass()
+    # import_category()
+    # import_ingredients()
+    # import_recipe(request)
     return render(request, 'migration.html')

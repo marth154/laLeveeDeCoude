@@ -22,10 +22,6 @@ docker-compose down
 
 docker-compose run web python manage.py createsuperuser
 
-### Migrate data from API :
-
-Go to the /migration page as admin and load the page 
-
 ## Styles
 
 ### Use
