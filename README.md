@@ -34,13 +34,13 @@ For each template, link the `main` style sheet of `css/base` and if necessary th
   type="text/x-scss"
   href="{% static 'css/base/main.scss' %}"
   rel="stylesheet"
-  media="screen"
+  
 />
 <link
   type="text/x-scss"
   href="{% static 'css/custom/login.scss' %}"
   rel="stylesheet"
-  media="screen"
+  
 />
 {% endcompress %}
 ```

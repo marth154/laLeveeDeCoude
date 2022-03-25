@@ -3,13 +3,13 @@
   type="text/x-scss"
   href="{% static 'css/base/main.scss' %}"
   rel="stylesheet"
-  media="screen"
+  
 />
 {% endcompress %} {% endcomment %}
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <div >
-    <a href="recipe/random"><button type="button" class="primary">Cocktail Surprise</button></a>  
-    {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}
+  <div> {% include "hero-home.html"%} </div>
+  <div> {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}</div>
 </div>
 
 {% comment %} {% endblock content %} {% endcomment %}

@@ -3,41 +3,43 @@
   type="text/x-scss"
   href="{% static 'css/base/main.scss' %}"
   rel="stylesheet"
-  media="screen"
+  
 />
-<link
-  type="text/x-scss"
-  href="{% static 'css/custom/recipe-detail.scss' %}"
-  rel="stylesheet"
-  media="screen"
-/>
+
 {% endcompress %}
 
-<li class="card">
-  <a href="recipe/{{recipe.id}}" style="text-decoration: none; color: initial">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="shadow-card my-5 d-flex flex-column justify-center">
+  <a href="recipe/{{recipe.id}}" >
     <img
       src="{% static 'asset/default-recipe.png' %}"
       alt="My image"
+      class="w-100"
     />
-    <div class="flex flex-column align-items-center mt-3">
+    <div class="flex flex-column justify-content-center align-items-center mt-3">
+      <div>
       {% for category in categories %}
+        <div class="d-flex justify-content-center">
           {% ifequal category.id recipe.category_id.id %}
-              <span class="badge pill bg-${color-primary} badge">{{ category.name }}</span>
+              <span class="tag primary mr-1">{{ category.name }}</span>
           {% endifequal %}
+        </div>
       {% endfor %}
-      <h4>{{ recipe.name }}</h4>
-      <hr style="width: 35%; margin: 10px auto;" />
+      </div>
+      <h4 class="txt-black text-center">{{ recipe.name }}</h4>
+      <hr  />
 
-      <div class="ingredient-content fontSize13">
+      <div class="fontSize13 d-flex justify-content-center flex-wrap mb-3">
           {% for ingredient in ingredients %}
               {% for group in recipe.ingredient_group.all %}
                   {% ifequal ingredient group %}
-                      <pre>{{ ingredient.name }} </pre>
+                      <p class="txt-black text-center m-1">{{ ingredient.name }} </p>
                   {% endifequal %}
               {% endfor %}
           {% endfor %}
       </div>
     </div>
   </a>
-</li>
+</div>
 {% endblock content %}

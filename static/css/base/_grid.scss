@@ -1,9 +1,7 @@
 @mixin grid($grid-type, $args, $column-gap: $row-gap) {
-  @supports (display: grid) {
     display: grid !important;
     #{$grid-type}: #{$args} !important;
     gap: rem($column-gap) !important;
-  }
 }
 
 $column-numbers: (
@@ -20,19 +18,15 @@ $column-numbers: (
       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
       .grid#{$infix}-column#{$column-number} {
-        @include grid(
-          "grid-template-columns",
-          "repeat(#{$column-number}, 1fr)",
-          15px
-        );
+        display: grid !important;
+        grid-template-columns: repeat(#{$column-number}, 1fr) !important;
+        gap: 1rem !important;
       }
 
       .grid#{$infix}-row#{$column-number} {
-        @include grid(
-          "grid-template-rows",
-          "repeat(#{$column-number}, 1fr)",
-          15px
-        );
+        display: grid !important;
+        grid-template-rows: repeat(#{$column-number}, 1fr) !important;
+        gap: 1rem !important;
       }
     }
   }

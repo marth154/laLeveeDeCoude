@@ -1,0 +1,9 @@
+@import '../base/breakpoints';
+@import '../base/variables';
+
+@include media-breakpoint-down(md) {
+    #hero-home img {
+        opacity: 0.2
+    }
+    
+}
