@@ -33,3 +33,5 @@ dist/
 
 static/CACHE/
 dq.sqlite3
+
+staticfiles/
