@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import requests
+from Migration.tasks import tprint
 from Recipe.models import Glass, Category, Recipe
 from django.contrib.auth.models import User
 from Ingredient.models import Ingredient, Ingredient_Group
@@ -7,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
 
+from huey import crontab
+from huey.contrib.djhuey import task, periodic_task, db_task
 
 # Create your views here.
 
@@ -113,8 +116,12 @@ def import_category():
 
 @login_required(login_url="/login")
 def import_data(request):
+    import_recipe(request)
+    return render(request, 'migration.html')
+
+
+@periodic_task(crontab(minute='*/60'))
+def migration():
     import_glass()
     import_category()
     import_ingredients()
-    import_recipe(request)
-    return render(request, 'migration.html')

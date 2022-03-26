@@ -12,13 +12,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-from urllib.parse import urlparse
 from django.conf import settings
 import django_heroku
 import logging
 
 from huey import RedisHuey
-from redis import ConnectionPool, Redis
+from redis import ConnectionPool
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -171,26 +170,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 django_heroku.settings(locals())
 
 HUEY = {
-    'name': settings.DATABASES['default']['NAME'],  # Use db name for huey.
+    'name': 'lldc-test',
+    'url': os.environ.get('REDISTOGO_URL', 'redis://127.0.0.1:6379'),
     'result_store': True,  # Store return values of tasks.
     'events': True,  # Consumer emits events allowing real-time monitoring.
     'store_none': False,  # If a task returns None, do not save to results.
-    'always_eager': settings.DEBUG,  # If DEBUG=True, run synchronously.
     'store_errors': True,  # Store error info if task throws exception.
     'blocking': False,  # Poll the queue rather than do blocking pop.
     'backend_class': 'huey.RedisHuey',  # Use path to redis huey by default,
-    'connection': {
-        'host': os.getenv('REDISTOGO_URL', 'redis://localhost:1212'),
-        'port': 1212,
-        'db': 0,
-        'connection_pool': None,  # Definitely you should use pooling!
-        # ... tons of other options, see redis-py for details.
-
-        # huey-specific connection parameters.
-        'read_timeout': 1,  # If not polling (blocking pop), use timeout.
-        'max_errors': 1000,  # Only store the 1000 most recent errors.
-        'url': None,  # Allow Redis config via a DSN.
-    },
     'consumer': {
         'workers': 1,
         'worker_type': 'thread',
@@ -205,11 +192,5 @@ HUEY = {
     },
 }
 
-redis_url = os.getenv('REDISTOGO_URL')
-
-urlparse.uses_netloc.append('redis')
-url = urlparse.urlparse(redis_url)
-conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
-
-pool = ConnectionPool(host='127.0.0.1', port=1212, max_connections=20)
-HUEY = RedisHuey('migration-app', connection_pool=conn)
+HUEY['immediate_use_memory'] = False
+HUEY['immediate'] = False

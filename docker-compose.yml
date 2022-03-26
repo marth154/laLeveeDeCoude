@@ -26,7 +26,7 @@ services:
   redis:
     image: redis:6-alpine
     ports:
-      - "1212:1212"
+      - "6379:6379"
     # environment:
     #   - POSTGRES_NAME=postgres
     #   - POSTGRES_USER=postgres
