@@ -2,6 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from gevent import monkey
+
 
 
 def main():
@@ -17,6 +19,13 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+# Apply monkey-patch if we are running the huey consumer.
+if 'run_huey' in sys.argv:
+    monkey.patch_all()
 
 if __name__ == '__main__':
     main()
+
+
+
+
