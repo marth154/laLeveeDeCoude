@@ -12,12 +12,13 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+from urllib.parse import urlparse
 from django.conf import settings
 import django_heroku
 import logging
 
 from huey import RedisHuey
-from redis import ConnectionPool
+from redis import ConnectionPool, Redis
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -179,7 +180,7 @@ HUEY = {
     'blocking': False,  # Poll the queue rather than do blocking pop.
     'backend_class': 'huey.RedisHuey',  # Use path to redis huey by default,
     'connection': {
-        'host': 'localhost',
+        'host': os.getenv('REDISTOGO_URL', 'redis://localhost:1212'),
         'port': 1212,
         'db': 0,
         'connection_pool': None,  # Definitely you should use pooling!
@@ -204,5 +205,11 @@ HUEY = {
     },
 }
 
+redis_url = os.getenv('REDISTOGO_URL')
+
+urlparse.uses_netloc.append('redis')
+url = urlparse.urlparse(redis_url)
+conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
+
 pool = ConnectionPool(host='127.0.0.1', port=1212, max_connections=20)
-HUEY = RedisHuey('migration-app', connection_pool=pool)
+HUEY = RedisHuey('migration-app', connection_pool=conn)
