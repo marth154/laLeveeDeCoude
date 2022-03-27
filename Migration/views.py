@@ -25,7 +25,7 @@ def import_glass():
     print("Migration Glass done")
 
 
-def import_recipe(request):
+def import_recipe():
     # Creating a table to loop through all the letters of the alphabet and numbers
     loop = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '9', '8', '7', '6', '5', '4', '3', '2', '1']
     recipes = Recipe.objects.filter(is_migrate=True)
@@ -53,7 +53,7 @@ def import_recipe(request):
                     print("Error Category")
                     category_recipe = None
 
-                user_recipe = User.objects.get(username=request.user)
+                user_recipe = User.objects.get(username="admin")
 
                 new_recipe = Recipe.objects.create(
                     pk=response['drinks'][k]['idDrink'],
@@ -116,14 +116,13 @@ def import_category():
 
 @login_required(login_url="/login")
 def import_data(request):
-    migration()
-    print('coucou')
     import_recipe(request)
     return render(request, 'migration.html')
 
 
-@periodic_task(crontab(minute='*/60'))
+@periodic_task(crontab(minute='*/5'))
 def migration():
     import_glass()
     import_category()
     import_ingredients()
+    import_recipe()
