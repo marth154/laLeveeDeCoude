@@ -120,9 +120,9 @@ def import_data(request):
     return render(request, 'migration.html')
 
 
-# @periodic_task(crontab(minute='*/5'))
-# def migration():
-#     import_glass()
-#     import_category()
-#     import_ingredients()
-#     import_recipe()
+@db_task()
+def migration():
+    import_glass()
+    import_category()
+    import_ingredients()
+    import_recipe()

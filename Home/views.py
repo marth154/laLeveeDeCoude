@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from Migration.views import migration
 from Recipe.models import Category, Recipe, User
 from Ingredient.models import Ingredient
 from django.http import Http404
@@ -9,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 #@login_required(login_url="/login")
 def home(request):
+    migration()
     latest_recipe = Recipe.objects.order_by('created_at')[:4]
     categories = Category.objects.all()
     users = User.objects.all()
