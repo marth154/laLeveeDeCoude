@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from Recipe.models import Category, Recipe, User
-from Ingredient.models import Ingredient, Ingredient_Group
+from Ingredient.models import Ingredient_Group
 from django.http import Http404
 from django.shortcuts import render
 
@@ -16,9 +16,8 @@ def home(request):
     print(last_recipe_with_ingregients)
     categories = Category.objects.all()
     users = User.objects.all()
-    ingredients = Ingredient.objects.all()
     
-    context = { "latest_recipe": last_recipe_with_ingregients, "categories": categories, "ingredients": ingredients, "users": users}
+    context = { "latest_recipe": last_recipe_with_ingregients, "categories": categories, "users": users}
     if request.user:
         return render(request, 'home.html', context)
     else:

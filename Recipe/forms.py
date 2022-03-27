@@ -1,7 +1,11 @@
+from dataclasses import fields
 from pickle import FALSE
+from django.db import models
 from django import forms
 from django.shortcuts import render
 import requests
+
+from Recipe.models import Recipe
 
 def getCategories():
     categories = [('' , '')]
@@ -59,3 +63,21 @@ class SearchForms(forms.Form):
         choices = alcoholicList,
         required = False
     )
+
+
+class Test(models.Model):
+    categoriesList = getCategories()
+    glassesList = getGlasses()
+    alcoholicList = getAlcoholics()
+    ingredientsList = getIngredients()
+
+    name = models.CharField(max_length=250)
+    # categories = models.CharField(choices = categoriesList, max_length=300)
+    # glasses = models.CharField(choices = glassesList, max_length=300)
+    # alcoholics = models.CharField(choices = alcoholicList, max_length=300)
+    # ingredients = models.CharField(choices = ingredientsList, max_length=300)
+
+class CreateForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ('name', )
