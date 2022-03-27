@@ -1,5 +1,32 @@
 {% include "header.html" %}
 
-<p>Add recipe</p>
+<form method="POST">
+  {% csrf_token %}
+  <div>
+    <div class="input_label">{{form.name.label}}</div>
+    <div class="input_field">{{form.name}}</div>
+  </div>
+  <div>
+    <div class="input_label">{{form.categories.label}}</div>
+    <div class="input_field">{{form.categories}}</div>
+  </div>
+  <div>
+    <div class="input_label">{{form.glasses.label}}</div>
+    <div class="input_field">{{form.glasses}}</div>
+  </div>
+  <div>
+    <div class="input_label">{{form.alcoholics.label}}</div>
+    <div class="input_field">{{form.alcoholics}}</div>
+  </div>
+  <div>
+    <div class="input_label">{{form.ingredients.label}}</div>
+    <div class="input_field">{{form.ingredients}}</div>
+  </div>
+  <input
+    type="submit"
+    value="Créer"
+    class="button-submit text-style-button-text"
+  />
+</form>
 
 {% include "footer.html" %}

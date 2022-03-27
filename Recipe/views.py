@@ -1,5 +1,6 @@
 from django.db import connection
 from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from urllib3.util import Retry
 import requests
 from requests.adapters import HTTPAdapter
@@ -10,13 +11,13 @@ from Recipe.forms import SearchForms
 from Ingredient.models import Ingredient, Ingredient_Group
 
 from operator import concat
-
-import requests
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.shortcuts import render
+from django.contrib import messages
 
-from Recipe.forms import SearchForms
+from Recipe.models import Recipe, Category, Glass, User
+from Ingredient.models import Ingredient, Ingredient_Group
 from User.models import Favorite
+from Recipe.forms import CreateForm, SearchForms
 
 def get_recipe():
     latest_recipe = Recipe.objects.order_by('created_at')[:4]
@@ -237,4 +238,22 @@ def paginator(request, recipes_list):
 
     return paginateList
 def add(request):
-    return render(request, 'recipe-add.html')
+    form = CreateForm()
+    print("METHOD ", request.method)
+
+    if request.method == "POST":
+        # Si oui on récupère les données postées
+        form = CreateForm(request.POST)
+        # on vérifie la validité du formulaire
+
+        if form.is_valid():
+            new_cocktail = form.save()
+            print("new_cocktail ",new_cocktail)
+            # on prépare un nouveau message
+            messages.success(request,'New cocktail created successfully !')
+            context = {'response': new_cocktail}
+            
+            return render(request, 'recipe-detail.html', context)
+    # Si méthode GET, on présente le formulaire
+    context = {'form': form}
+    return render(request,'recipe-add.html', context)
