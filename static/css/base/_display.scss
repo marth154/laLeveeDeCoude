@@ -1,0 +1,59 @@
+@import "breakpoints.scss";
+
+// Utilities for common `display` values
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $value in $displays {
+      .d#{$infix}-#{$value} {
+        display: $value !important;
+      }
+    }
+  }
+}
+
+
+
+// Hide element by size breakpoint
+@include media-breakpoint-up(xl) {
+  .hide-xl-up {
+    display: none !important;
+  }
+}
+@include media-breakpoint-up(lg) {
+  .hide-lg-up {
+    display: none !important;
+  }
+}
+@include media-breakpoint-up(md) {
+  .hide-md-up {
+    display: none !important;
+  }
+}
+@include media-breakpoint-up(sm) {
+  .hide-sm-up {
+    display: none !important;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .hide-xl-down {
+    display: none !important;
+  }
+}
+@include media-breakpoint-up(lg) {
+  .hide-lg-down {
+    display: none !important;
+  }
+}
+@include media-breakpoint-up(md) {
+  .hide-md-down {
+    display: none !important;
+  }
+}
+@include media-breakpoint-up(sm) {
+  .hide-sm-down {
+    display: none !important;
+  }
+}

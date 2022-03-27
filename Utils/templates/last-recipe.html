@@ -1,0 +1,21 @@
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+/>
+
+{% endcompress %}
+
+<div class="container">
+{% if latest_recipe %}
+  <div class="grid-xs-column1 grid-sm-column2 grid-md-column3 grid-lg-column4">
+      {% for recipe in latest_recipe %}
+        {% include "card-recipe.html" with recipe=recipe categories=categories ingredient=ingredients %} 
+      {% endfor %}
+  </div>
+{% else %}
+  <p>No recipes are available.</p>
+{% endif %}
+</div>
+{% endblock content %}

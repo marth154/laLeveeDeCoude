@@ -1,0 +1,45 @@
+@import "./variables";
+
+hr {
+  clear: both;
+  border-bottom: 0;
+  border-top: 1px solid $grey;
+  border-right: 0;
+  border-left: 0;
+  min-height: 0;
+  height: 2px;
+  border-color: $grey;
+  width: 50px;
+}
+
+// Shadows
+.shadow-none {
+  box-shadow: none !important;
+}
+
+.shadow-card {
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1) !important;
+  &:hover {
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15) !important;
+
+  }
+}
+
+// Messages
+
+.error-message {
+  background: rgba(254, 192, 160, 0.2);
+  text-align: center;
+  padding: 6px 20px;
+  border: 1px solid $red;
+  color: $red;
+  border-radius: 2px;
+}
+
+.success-message {
+  background: rgba(149, 230, 22, 0.05);
+  text-align: center;
+  padding: 6px 20px;
+  border: 1px solid $green;
+  color: $green;
+}

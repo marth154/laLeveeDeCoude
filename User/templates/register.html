@@ -1,0 +1,58 @@
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  
+/>
+<link
+  type="text/x-scss"
+  href="{% static 'css/custom/register.scss' %}"
+  rel="stylesheet"
+  
+/>
+{% endcompress %}
+
+<div class="custom-size d-md-flex flex-column flex-lg-row w-100">
+  <div class="w-md-100 w-sm-50">
+    <img
+      src="{% static 'asset/imageRegister.png' %}"
+      alt="My image"
+      class="h-100 custom-image"
+    />
+  </div>
+  <div class="w-md-100 w-sm-50">
+    <div
+      class="h-100 d-flex flex-column justify-content-center align-content-center align-items-center"
+    >
+      <img
+        class="m-3"
+        src="{% static 'asset/logo.png' %}"
+        alt="Logo La levée de coude"
+        style="width: 250; height: 250"
+      />
+      <h1 class="m-0">Créer un compte</h1>
+      <div>
+        {% if existing %}
+        <p class="error-message">Cet email existe deja</p>
+        {% endif %}
+        <form method="POST">
+          {% csrf_token %}
+          <div class="input__label">{{ form.username.label }}</div>
+          <div class="input__field">{{ form.username }}</div>
+          <div class="input__label">{{ form.email.label }}</div>
+          <div class="input__field">{{ form.email }}</div>
+          <div class="input__label">{{ form.password.label }}</div>
+          <div class="input__field">{{ form.password }}</div>
+          <input type="submit" value="S'inscrire" class="button primary" />
+        </form>
+        <p>
+          Vous avez déjà un compte ?
+          <a href="/login" class="underline-hover">Connectez-vous !</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

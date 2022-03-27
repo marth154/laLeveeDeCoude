@@ -1,0 +1,85 @@
+// Global links
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: $accent !important;
+}
+
+a.underline-hover:hover {
+  text-decoration: underline;
+}
+
+// Personalized buttons
+button,
+.button,
+a.button,
+input.button {
+  overflow: hidden !important;
+  text-decoration: none;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: $font-size17;
+  min-width: 200px !important;
+  line-height: 35px !important;
+  border-radius: $border-radius-btn;
+  text-align: center !important;
+  padding: 6px 32px !important;
+
+  &:disabled {
+    background-color: $grey;
+  }
+
+  &.primary:disabled {
+    background-color: $grey !important;
+  }
+
+  &.primary:disabled {
+    background-color: $grey !important;
+    color: $grey !important;
+  }
+
+  &.primary {
+    border: 1px solid transparent;
+    background-color: $accent !important;
+    color: $white !important;
+    text-align: center !important;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      border: 1px solid $accent;
+      background-color: transparent !important;
+      color: $accent !important;
+    }
+  }
+
+  &.secondary {
+    border: 1px solid $accent;
+    background-color: transparent !important;
+    color: $accent !important;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      border: 1px solid transparent;
+      background-color: $accent !important;
+      color: $white !important;
+    }
+  }
+
+  &.no-style {
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
+    cursor: pointer;
+    -webkit-appearance: button; // for input.
+    -webkit-user-select: none; // for button.
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+

@@ -1,7 +1,5 @@
 from django.db import models
-from User.models import User
-from Ingredient.models import Ingredient
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -15,17 +13,15 @@ class Glass(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=250)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
-    is_shared = models.BooleanField
-    alcoholic = models.BooleanField
-    glass_id = models.ForeignKey(Glass, on_delete=models.CASCADE)
-    steps = models.CharField(max_length=500)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    category_id = models.ForeignKey(
+        Category, on_delete=models.CASCADE, null=True)
+    thumbnail = models.CharField(max_length=250, null=True)
+    is_shared = models.BooleanField(default=False)
+    is_migrate = models.BooleanField(default=False)
+    is_alcoholic = models.BooleanField(default=True)
+    glass_id = models.ForeignKey(Glass, on_delete=models.CASCADE, null=True)
+    steps = models.TextField(null=True)
+    # ingredient_group = models.ManyToManyField(Ingredient)
     created_at = models.DateTimeField('created at')
     updated_at = models.DateTimeField('updated at')
-
-
-class Recipe_Ingredients(models.Model):
-    recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    ingredient_id = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    quantity = models.CharField(max_length=250)

@@ -1,0 +1,4 @@
+  docker:
+    web: Dockerfile
+    run:
+      web: gunicorn lldc-test.wsgi:app --bind 0.0.0.0:$PORT

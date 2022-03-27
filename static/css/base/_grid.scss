@@ -1,0 +1,33 @@
+@mixin grid($grid-type, $args, $column-gap: $row-gap) {
+    display: grid !important;
+    #{$grid-type}: #{$args} !important;
+    gap: rem($column-gap) !important;
+}
+
+$column-numbers: (
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+) !default;
+
+@each $column-number in map-keys($column-numbers) {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+      .grid#{$infix}-column#{$column-number} {
+        display: grid !important;
+        grid-template-columns: repeat(#{$column-number}, 1fr) !important;
+        gap: 1rem !important;
+      }
+
+      .grid#{$infix}-row#{$column-number} {
+        display: grid !important;
+        grid-template-rows: repeat(#{$column-number}, 1fr) !important;
+        gap: 1rem !important;
+      }
+    }
+  }
+}

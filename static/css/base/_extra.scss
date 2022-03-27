@@ -1,0 +1,127 @@
+// Extra classes for common elements and pages
+body {
+  background-color: $white;
+}
+
+// This hack allows to fill all height of each page and push the <app-footer> to the bottom.
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+app-root {
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+// Cursor styles
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// Hide the cursor for disabled inputs/btn
+.disabled {
+  cursor: none !important;
+}
+
+// Mouse cursor for disabled a/mat-checkbox ex : /programme/6 (Documents)
+.no-drop {
+  cursor: no-drop !important;
+}
+
+// Float
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .float#{$infix}-left {
+      float: left !important;
+    }
+    .float#{$infix}-right {
+      float: right !important;
+    }
+    .float#{$infix}-none {
+      float: none !important;
+    }
+  }
+}
+
+// Visibility
+.visible {
+  visibility: visible !important;
+}
+.invisible {
+  visibility: hidden !important;
+}
+
+// Center image background
+.img-bg-center {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+// List styles
+ul.list-unstyled,
+ol.list-unstyled {
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+ul.list-unstyled li,
+ol.list-unstyled li {
+  list-style-type: none;
+}
+
+
+
+
+// Pagination
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+      
+.pagination {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+      
+.pagination li {
+  margin: 0 1px;
+  border: 1px solid $grey;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.active {
+    padding: 1rem;
+    background-color:$color-primary !important;
+    color: $white !important;
+  }
+  a {
+    display:block;
+    padding: 1rem;
+    color: $color-primary !important;
+    &:hover {
+      text-decoration: none !important;
+    }
+
+  }
+  &:hover {
+    background-color:$color-primary !important;
+    color: $white !important;
+    a {
+      color: $white !important;
+    }
+  }
+}
+  

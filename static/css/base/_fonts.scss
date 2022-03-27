@@ -1,0 +1,203 @@
+// Global font
+body {
+  font-family: $font-base;
+}
+
+// Default
+
+h2 {
+  font-size: $font-size40 !important;
+  font-weight: 700;
+  line-height: 160%;
+  letter-spacing: 0.015em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: $black
+}
+
+h1 {
+  font-size: $font-size60 !important;
+  font-weight: 900;
+  line-height: 160%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: $black
+}
+
+p {
+  color: $black;
+  font-size: $font-size16 !important;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+@media (max-width: 599px) {
+  h2 {
+    font-size: $font-size32 !important;
+    font-weight: 700;
+    line-height: 160%;
+    letter-spacing: 0.015em;
+    color: $black
+  }
+
+  h1 {
+    font-size: $font-size26 !important;
+    font-weight: 900;
+    line-height: 160%;
+    color: $black
+  }
+}
+
+// Font families
+.font-family-primary {
+  font-family: $font-base;
+}
+.font-family-secondary {
+  font-family: $font-base;
+}
+
+// Font sizes (from px to em)
+.fontSize5 {
+  font-size: $font-size5 !important;
+}
+.fontSize10 {
+  font-size: $font-size10 !important;
+}
+.fontSize11 {
+  font-size: $font-size11 !important;
+}
+.fontSize12 {
+  font-size: $font-size12 !important;
+}
+.fontSize13 {
+  font-size: $font-size13 !important;
+}
+.fontSize14 {
+  font-size: $font-size14 !important;
+}
+.fontSize15 {
+  font-size: $font-size15 !important;
+}
+.fontSize16 {
+  font-size: $font-size16 !important;
+}
+.fontSize17 {
+  font-size: $font-size17 !important;
+}
+.fontSize18 {
+  font-size: $font-size18 !important;
+}
+.fontSize19 {
+  font-size: $font-size19 !important;
+}
+.fontSize20 {
+  font-size: $font-size20 !important;
+}
+.fontSize21 {
+  font-size: $font-size21 !important;
+}
+.fontSize22 {
+  font-size: $font-size22 !important;
+}
+.fontSize24 {
+  font-size: $font-size24 !important;
+}
+.fontSize26 {
+  font-size: $font-size26 !important;
+}
+.fontSize32 {
+  font-size: $font-size32 !important;
+}
+.fontSize36 {
+  font-size: $font-size36 !important;
+}
+.fontSize40 {
+  font-size: $font-size40 !important;
+}
+.fontSize60 {
+  font-size: $font-size60 !important;
+}
+.fontSize80 {
+  font-size: $font-size80 !important;
+}
+
+// Font weight
+.font-weight-bold {
+  font-weight: $font-weight-bold !important;
+}
+.font-weight-semibold {
+  font-weight: $font-weight-semibold !important;
+}
+.font-weight-normal {
+  font-weight: $font-weight-normal !important;
+}
+.font-weight-light {
+  font-weight: $font-weight-light !important;
+}
+
+// Line height
+.line-height-0 {
+  line-height: 0 !important;
+}
+.line-height-1 {
+  line-height: 1 !important;
+}
+.line-height-1_2 {
+  line-height: 1.2 !important;
+}
+.line-height-1_5 {
+  line-height: 1.5 !important;
+}
+.line-height-2 {
+  line-height: 2 !important;
+}
+.line-height-3 {
+  line-height: 3 !important;
+}
+
+// Text aligment
+.text-center {
+  text-align: center !important;
+}
+.text-left {
+  text-align: left !important;
+}
+.text-right {
+  text-align: right !important;
+}
+
+// Text decoration
+.text-underline {
+  text-decoration: underline !important;
+}
+.text-deco-none {
+  text-decoration: none !important;
+}
+
+// Text transform
+.text-capitalize {
+  text-transform: capitalize !important;
+}
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+// Text manipulation
+.text-pre-wrap {
+  white-space: pre-wrap;
+}
+.text-nowrap {
+  white-space: nowrap;
+}
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Dans le cas d'une matcard avec disposition colonne entre une image et une pseudo cellule afin que les mots passe à la ligne
+
+.text-breakword {
+  width: 8em;
+  word-wrap: break-word;
+}

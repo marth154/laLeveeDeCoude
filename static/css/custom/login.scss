@@ -1,0 +1,11 @@
+@import "../base/variables";
+
+img.custom-image {
+  width: 100%;
+  object-fit: cover;
+  border: 25px solid $color-bg-shade;
+}
+
+.custom-size {
+  height: calc(100vh - 50px);
+}

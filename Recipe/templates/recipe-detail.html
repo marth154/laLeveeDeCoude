@@ -1,0 +1,30 @@
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  
+/>
+
+{% endcompress %}
+
+{% if response %}
+  {% include "card-recipe-details.html" with response=response %}
+    <div class="bg-color-bg-shade">
+      <h3>Instructions</h3>
+      <span>{{response.strInstructions}}</span>
+    </div>
+    <div>
+      <h2>Other recipes</h2>
+      {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}
+    </div>
+{% elif recipe %}
+  {% include "card-recipe-details.html" with recipe=recipe categories=categories ingredients=ingredients users=users glasses=glasses %}
+  <div class="bg-color-bg-shade">
+    <h3>Instructions</h3>
+    <span>{{recipe.steps}}</span>
+  </div>
+{% else %}
+  <p>No details found.</p>
+{% endif %}
+{% endblock content %}

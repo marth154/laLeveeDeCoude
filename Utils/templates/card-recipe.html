@@ -1,0 +1,45 @@
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  
+/>
+
+{% endcompress %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="shadow-card my-5 d-flex flex-column justify-center">
+  <a href="recipe/{{recipe.id}}" >
+    <img
+      src="{% static 'asset/default-recipe.png' %}"
+      alt="My image"
+      class="w-100"
+    />
+    <div class="flex flex-column justify-content-center align-items-center mt-3">
+      <div>
+      {% for category in categories %}
+        <div class="d-flex justify-content-center">
+          {% ifequal category.id recipe.category_id.id %}
+              <span class="tag primary mr-1">{{ category.name }}</span>
+          {% endifequal %}
+        </div>
+      {% endfor %}
+      </div>
+      <h4 class="txt-black text-center">{{ recipe.name }}</h4>
+      <hr  />
+
+      <div class="fontSize13 d-flex justify-content-center flex-wrap mb-3">
+          {% for ingredient in ingredients %}
+              {% for group in recipe.ingredient_group.all %}
+                  {% ifequal ingredient group %}
+                      <p class="txt-black text-center m-1">{{ ingredient.name }} </p>
+                  {% endifequal %}
+              {% endfor %}
+          {% endfor %}
+      </div>
+    </div>
+  </a>
+</div>
+{% endblock content %}
