@@ -21,5 +21,4 @@ urlpatterns = [
     path('', include("User.urls")),
     path('recipe/', include('Recipe.urls')),
     path('', include("Home.urls")),
-    path('', include("Migration.urls"))
 ]
