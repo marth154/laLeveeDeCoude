@@ -1,7 +1,11 @@
+from operator import ge
 from django.shortcuts import render
 
 # from .models import User
 from django.contrib.auth.models import User
+
+from Ingredient.models import Ingredient_Group
+from .models import Favorite
 from .forms import RegisterForms, LoginForms
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
@@ -58,3 +62,27 @@ def registerCredentials(request):
 
 def bar(request):
     return render(request, 'bar.html')
+
+
+def favorites(request):
+    recipes_with_ingredient = []
+    try:
+        my_favorites = Favorite.objects.filter(user=request.user)
+    except:
+        my_favorites = False
+    
+    for recipe in my_favorites:
+        recipes_with_ingredient.append(get_ingredient(recipe.recipe))
+    return render(request, 'my-favorite.html', {'my_favorites': recipes_with_ingredient})
+
+
+
+def get_ingredient(recipe):
+    list_ingredient = []
+    array_recipe_ingredients = []
+    ingredients = Ingredient_Group.objects.filter(recipe=recipe)
+    for ingredient in ingredients:
+        list_ingredient.append(ingredient)
+    array_recipe_ingredients.extend([list_ingredient])
+    array_recipe_ingredients.extend([recipe])
+    return array_recipe_ingredients
