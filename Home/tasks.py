@@ -8,7 +8,7 @@ from datetime import datetime
 
 
 from huey import crontab
-from huey.contrib.djhuey import db_task
+from huey.contrib.djhuey import periodic_task
 
 # Create your views here.
 
@@ -112,7 +112,7 @@ def import_category():
     print("Migration Category done")
 
 
-@db_task()
+@periodic_task(crontab(minute='*/60'))
 def migration():
     import_glass()
     import_category()
