@@ -116,6 +116,8 @@ def import_category():
 
 @login_required(login_url="/login")
 def import_data(request):
+    migration()
+    print('coucou')
     import_recipe(request)
     return render(request, 'migration.html')
 
