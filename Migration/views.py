@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import requests
-from Migration.tasks import tprint
+from Migration.tasks import add, tprint
 from Recipe.models import Glass, Category, Recipe
 from django.contrib.auth.models import User
 from Ingredient.models import Ingredient, Ingredient_Group
@@ -116,7 +116,7 @@ def import_category():
 
 @login_required(login_url="/login")
 def import_data(request):
-    import_recipe(request)
+    add(1, 2)
     return render(request, 'migration.html')
 
 
