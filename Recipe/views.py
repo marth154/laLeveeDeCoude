@@ -1,23 +1,20 @@
-from django.db import connection
-from django.shortcuts import render
-from django.shortcuts import render, get_object_or_404
-from urllib3.util import Retry
-import requests
-from requests.adapters import HTTPAdapter
-from django.http import Http404
-from Home.views import get_ingredient
-from Recipe.models import Recipe, Category, Glass, User
-from Recipe.forms import SearchForms
-from Ingredient.models import Ingredient, Ingredient_Group
-
 from operator import concat
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.contrib import messages
 
-from Recipe.models import Recipe, Category, Glass, User
+import requests
+from django.contrib import messages
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db import connection
+from django.http import Http404
+from django.shortcuts import get_object_or_404, render
+from Home.views import get_ingredient
 from Ingredient.models import Ingredient, Ingredient_Group
+from requests.adapters import HTTPAdapter
+from urllib3.util import Retry
 from User.models import Favorite
+
 from Recipe.forms import CreateRecipe, SearchForms
+from Recipe.models import Category, Glass, Recipe, User
+
 
 def get_recipe():
     latest_recipe = Recipe.objects.order_by('created_at')[:4]

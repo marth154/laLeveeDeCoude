@@ -1,6 +1,5 @@
 from dataclasses import fields
 from pickle import FALSE
-from urllib import response
 from django.db import models
 from django import forms
 from django.shortcuts import render
@@ -11,6 +10,8 @@ from Recipe.models import Category, Glass
 
 from Recipe.models import Recipe
 
+
+from Recipe.models import Recipe
 
 def getCategories():
     categories = [('', '')]
