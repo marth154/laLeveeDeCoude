@@ -1,0 +1,18 @@
+{% load static %}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'Recipe/css/bootstrap.min.css' %}"
+/>
+
+<p>My favorite</p>
+{%if my_favorites %} 
+  {% for fav in my_favorites %}
+    <div class="grid-xs-column1 grid-sm-column2 grid-md-column3 grid-lg-column4">
+      {% include "card-recipe.html" with recipe=fav %}
+    </div>
+  {% endfor %}
+{%else%} 
+<p>No favorites</p>
+{%endif%}
