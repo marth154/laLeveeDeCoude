@@ -17,7 +17,7 @@ from django.contrib import messages
 from Recipe.models import Recipe, Category, Glass, User
 from Ingredient.models import Ingredient, Ingredient_Group
 from User.models import Favorite
-from Recipe.forms import CreateForm, SearchForms
+from Recipe.forms import CreateRecipe, SearchForms
 
 def get_recipe():
     latest_recipe = Recipe.objects.order_by('created_at')[:4]
@@ -238,12 +238,12 @@ def paginator(request, recipes_list):
 
     return paginateList
 def add(request):
-    form = CreateForm()
+    form = CreateRecipe()
     print("METHOD ", request.method)
 
     if request.method == "POST":
         # Si oui on récupère les données postées
-        form = CreateForm(request.POST)
+        form = CreateRecipe(request.POST)
         # on vérifie la validité du formulaire
 
         if form.is_valid():

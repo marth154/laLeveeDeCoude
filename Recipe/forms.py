@@ -95,8 +95,33 @@ class Test(models.Model):
     # alcoholics = models.CharField(choices = alcoholicList, max_length=300)
     # ingredients = models.CharField(choices = ingredientsList, max_length=300)
 
-
-class CreateForm(forms.ModelForm):
-    class Meta:
-        model = Recipe
-        fields = ('name', )
+class CreateRecipe(forms.Form):
+    name = forms.CharField(
+        label='Name of recipe',
+        widget=forms.TextInput(attrs={"placeholder": ("Name of recipe")})
+    )
+    categories = forms.CharField(
+        label='Category',
+        widget=forms.TextInput(attrs={"placeholder": ("Category")}),
+    )
+    glasses = forms.CharField(
+        label='Glass type',
+        widget=forms.TextInput(attrs={"placeholder": ("Glass type")})
+    )
+    alcoholics = forms.CharField(
+        label='Alcoholic',
+        widget=forms.TextInput(attrs={"placeholder": ("Alcoholic")})
+    )
+    for i in range(5):
+        ingredients = forms.BooleanField(
+            label=str('Ingredient ' + str(i) ),
+            # widget=forms.TextInput(attrs={"placeholder": (str("Ingredient " + i ))})
+        )
+    steps = forms.CharField(
+        label='Steps',
+        widget=forms.TextInput(attrs={"placeholder": ("Steps")})
+    )
+    is_shared = forms.BooleanField(
+        label="Is shared"
+    )
+    

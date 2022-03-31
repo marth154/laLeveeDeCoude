@@ -1,26 +1,53 @@
-{% include "header.html" %}
+{% include "header.html" %} {% block content %} {% load static %} {% load
+compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+/>
+<link
+  type="text/x-scss"
+  href="{% static 'css/custom/login.scss' %}"
+  rel="stylesheet"
+/>
+{% endcompress %}
 
 <form method="POST">
   {% csrf_token %}
-  <div>
-    <div class="input_label">{{form.name.label}}</div>
-    <div class="input_field">{{form.name}}</div>
-  </div>
-  <div>
-    <div class="input_label">{{form.categories.label}}</div>
-    <div class="input_field">{{form.categories}}</div>
-  </div>
-  <div>
-    <div class="input_label">{{form.glasses.label}}</div>
-    <div class="input_field">{{form.glasses}}</div>
-  </div>
-  <div>
-    <div class="input_label">{{form.alcoholics.label}}</div>
-    <div class="input_field">{{form.alcoholics}}</div>
-  </div>
-  <div>
-    <div class="input_label">{{form.ingredients.label}}</div>
-    <div class="input_field">{{form.ingredients}}</div>
+  <div class="container">
+    <div class="grid-md-column3">
+      <div>
+        <div class="input_label">{{form.name.label}}</div>
+        <div class="input_field">{{form.name}}</div>
+      </div>
+      <div>
+        <div class="input_label">{{form.categories.label}}</div>
+        <div class="input_field">{{form.categories}}</div>
+      </div>
+      <div>
+        <div class="input_label">{{form.glasses.label}}</div>
+        <div class="input_field">{{form.glasses}}</div>
+      </div>
+    </div>
+
+    <div class="grid-md-column2">
+      <div>
+        <div class="input_label">{{form.alcoholics.label}}</div>
+        <div class="input_field">{{form.alcoholics}}</div>
+      </div>
+
+      <div>
+        <div class="input_label">{{form.is_shared.label}}</div>
+        <div class="input_field">{{form.is_shared}}</div>
+      </div>
+    </div>
+
+    <div class="grid-md-column1">
+      <div>
+        <div class="input_label">{{form.ingredients.label}}</div>
+        <div class="input_field">{{form.ingredients}}</div>
+      </div>
+    </div>
   </div>
   <input
     type="submit"
@@ -29,4 +56,4 @@
   />
 </form>
 
-{% include "footer.html" %}
+{% include "footer.html" %} {% endblock content %}
