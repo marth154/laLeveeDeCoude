@@ -13,6 +13,7 @@
 <div >
   <div> {% include "hero-home.html"%} </div>
   <div> {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}</div>
+  <div> {% include "categories.html" with categories=categories %}</div>
 </div>
 
  {% endblock content %} 

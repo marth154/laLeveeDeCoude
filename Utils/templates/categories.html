@@ -1,0 +1,22 @@
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+/>
+
+{% endcompress %}
+
+<div class="container text-center">
+    <h2>Les types de cocktails</h2>
+    {% if categories %}
+    <div class="grid-xs-column1 grid-sm-column2 grid-md-column3 align-items-center justify-content-center">
+        {% for category in categories %}
+            {% include "card-category.html" with category=category %} 
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No categories are available.</p>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,1 +1,23 @@
-<p>Card category</p>
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  
+/>
+
+{% endcompress %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="my-5 d-flex flex-column justify-center">
+  {% comment %} <a href="/recipe/{{recipe.1.id}}" > {% endcomment %}
+    <img
+      src="{% static 'asset/default-recipe.png' %}"
+      alt="My image"
+      class="w-100"
+    />
+  <p class="text-uppercase font-weight-semibold ">{{category.name}}</p>
+  {% comment %} </a> {% endcomment %}
+</div>
+{% endblock content %}
