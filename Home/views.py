@@ -13,7 +13,6 @@ def home(request):
     latest_recipe = Recipe.objects.order_by('created_at')[:4]
     for recipe in latest_recipe:
         last_recipe_with_ingregients.append(get_ingredient(recipe))
-    print(last_recipe_with_ingregients)
     categories = Category.objects.all()
     users = User.objects.all()
     ingredients = Ingredient.objects.all()
@@ -28,6 +27,8 @@ def home(request):
 def latest_recipe_list(request):
     return render(request, "last-recipe.html")
 
+def categories(request):
+    return render(request, "categories.html")
 
 def get_ingredient(recipe):
     list_ingredient = []
