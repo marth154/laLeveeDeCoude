@@ -19,9 +19,11 @@
     </div>
   </div>
 
-  <div>
-    <h2>Other recipes</h2>
-    {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}
+  <div class="container my-5">
+    <div class="text-center">
+      <h2>Other recipes</h2>
+      {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}</div>
+    </div>
   </div>
   
   {% elif recipe %}
@@ -34,6 +36,6 @@
   </div>
   
   {% else %}
-  <p>No details found.</p>
+    <p>No details found.</p>
   {% endif %}
 {% endblock content %}

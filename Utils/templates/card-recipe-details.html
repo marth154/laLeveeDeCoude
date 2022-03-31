@@ -48,9 +48,9 @@
 
         <div class="d-flex shadow-card my-4" >
             {%if recipe %}
-                <img src="{% static 'asset/default-recipe.png' %}" alt="cocktail" style="width: 470px;" />
+                <img src="{% static 'asset/default-recipe.png' %}" alt="cocktail" style="width: 450px; margin: 30px" />
             {%else %}
-                <img src="{{response.strDrinkThumb}}" alt="cocktail" style="width: 470px;">
+                <img src="{{response.strDrinkThumb}}" alt="cocktail" style="width: 450px; margin: 30px">
             {% endif %}
 
             <div class="pt-6 pl-6" style="text-align: left">

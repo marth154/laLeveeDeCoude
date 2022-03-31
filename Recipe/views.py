@@ -3,6 +3,7 @@ from urllib3.util import Retry
 import requests
 from requests.adapters import HTTPAdapter
 from django.http import Http404
+from Home.views import get_ingredient
 from Recipe.models import Recipe, Category, Glass, User
 from Recipe.forms import SearchForms
 from Ingredient.models import Ingredient, Ingredient_Group
@@ -31,8 +32,13 @@ def random(request):
     response = requests.get(
         'https://www.thecocktaildb.com/api/json/v1/1/random.php').json()
     parsedResponse = format_recipe(request,response['drinks'][0])
+    
+    recipes_with_ingredient = []
     latest_recipe = Recipe.objects.order_by('created_at')[:4]
-    context = {'latest_recipe': latest_recipe, 'response': parsedResponse}
+    for recipe in latest_recipe:
+        recipes_with_ingredient.append(get_ingredient(recipe))
+
+    context = {'latest_recipe': recipes_with_ingredient, 'response': parsedResponse}
     return render(request, 'recipe-detail.html', context)
 
 
