@@ -16,8 +16,6 @@ from django.shortcuts import render
 from Recipe.forms import SearchForms
 from User.models import Favorite
 
-
-# TODO à mettre dans les def qui utilise c'est model
 def get_recipe():
     latest_recipe = Recipe.objects.order_by('created_at')[:4]
     categories = Category.objects.all()

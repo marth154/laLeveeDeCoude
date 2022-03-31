@@ -8,77 +8,74 @@
 
 {% endcompress %}
 
-<div class="justify-content-center card-horizontal">
-    <div style="display: grid; text-align: center;">
-    <h1 >{{ recipe.name }}{{response.strDrink}}</h1>
-    {% for user in users %}
-        {% ifequal user.pk recipe.user_id.pk %}
-            <p>by {{ user.username }}</p>
-        {% endifequal %}
-    {% endfor %}
-
-    <div>
-        {% for category in categories %}
-            {% ifequal category.id recipe.category_id.id %}
-                <span class="badge bg-color-primary">{{ category.name }}</span>
-            {% endifequal %}
-        {% endfor %}
-  
-        {% for glass in glasses %}
-            {% ifequal glass.id recipe.glass_id.id %}
-                <span class="badge bg-blue">{{ glass.name }}</span>
+<div class="container my-5">
+    <div class="text-center">
+        <h1 class="mb-1">{{ recipe.name }}{{response.strDrink}}</h1>
+        {% for user in users %}
+            {% ifequal user.pk recipe.user.pk %}
+                <p class="my-1">by {{ user.username }}</p>
             {% endifequal %}
         {% endfor %}
 
-        {% if recipe %}
-            <span class="badge bg-color-accent-middle">{% if recipe.is_alcoholic%}Alcoholic{% else %}Non alcoholic{% endif %}</span>
-        {% elif response %}
-            <span class="badge bg-primary">{{response.strCategory}}</span>
-            <span class="badge bg-blue">{{response.strGlass}}</span>
-            <span class="badge bg-color-accent-middle">{{response.strAlcoholic}}</span>
-        {% endif %}
-
-    </div>
-    </div>
-
-    <div style="display: flex; gap: 26px" class="card flex-row p-3 effect-style-shadow mt-4">
-        {%if recipe %}
-        <img src="{% static 'asset/default-recipe.png' %}" alt="cocktail" style="width: 470px;" />
-        <div>
-            <h2 class="mb-4">Ingredients</h2>
-            <ul>                        
-                {% for ingredient in ingredients %}
-                <li>{{ ingredient.ingredient.name }} : {{ingredient.quantity}} </li>
+        <div class="d-flex justify-content-center">
+            {% if categories %}
+                {% for category in categories %}
+                    {% ifequal category.id recipe.category_id.id %}
+                        <span class="tag green mr-2">{{ category.name }}</span>
+                    {% endifequal %}
                 {% endfor %}
-            </ul>
-            <form method="POST" class="custom-form">
-                {% if is_favorite %}
-                    <button type="submit" name="remove" value="true" class="button secondary">Remove to favorites</button>
-                {% else %}
-                    <button type="submit" name="add" value="true" class="button secondary">Add to favorites</button>
-                {% endif %}
-            </form>
-        </div>
-        {%else %}
-        <img src="{{response.strDrinkThumb}}" alt="cocktail" style="width: 470px;">
-        <div>
+            {% else %}
+                <span class="tag green mr-2">{{response.strCategory}}</span>
+            {% endif %}
 
-            <h2 class="mb-4">Ingredients</h2>
-            <ul>
-                {% for ingredient in response.strIngredients %}
-                <li>{{ingredient}}</li>
+            {% if glasses %}
+                {% for glass in glasses %}
+                    {% ifequal glass.id recipe.glass_id.id %}
+                        <span class="tag blue mr-2">{{ glass.name }}</span>
+                    {% endifequal %}
                 {% endfor %}
-            </ul>
-            <form method="POST">
-                {% if is_favorite %}
-                    <button type="submit" name="remove" value="true" class="button secondary">Remove to favorites</button>
-                {% else %}
-                    <button type="submit" name="add" value="true" class="button secondary">Add to favorites</button>
-                {% endif %}
-            </form>
-        </div>
-        {%endif %}
-    </div>
+            {% else %}
+                <span class="tag blue mr-2">{{response.strGlass}}</span>
+            {% endif %}
 
+            {% if recipe %}
+                <span class="tag accent-middle mr-2">{% if recipe.is_alcoholic%}Alcoholic{% else %}Non alcoholic{% endif %}</span>
+            {% else %}
+                <span class="tag accent-middle mr-2">{{response.strAlcoholic}}</span>
+            {% endif %}
+
+        </div>
+
+        <div class="d-flex shadow-card my-4" >
+            {%if recipe %}
+                <img src="{% static 'asset/default-recipe.png' %}" alt="cocktail" style="width: 470px;" />
+            {%else %}
+                <img src="{{response.strDrinkThumb}}" alt="cocktail" style="width: 470px;">
+            {% endif %}
+
+            <div class="pt-6 pl-6" style="text-align: left">
+                <h2 class="mb-4">Ingredients</h2>
+                <ul class="list-unstyled"> 
+                {% if ingredients %}
+                    {% for ingredient in ingredients %}
+                        <li class="mb-3">{{ ingredient.ingredient.name }} : {{ingredient.quantity}} </li>
+                    {% endfor %}
+                {% elif response.strIngredients %}
+                    {% for ingredient in response.strIngredients %}
+                        <li class="mb-3">{{ingredient}}</li>
+                    {% endfor %}                      
+                {% endif %}
+                </ul>
+                <form method="POST">
+                    {% if is_favorite %}
+                        <button type="submit" name="remove" value="true" class="button secondary">Remove to favorites</button>
+                    {% else %}
+                        <button type="submit" name="add" value="true" class="button secondary">Add to favorites</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+
+    </div>
 </div>
 {% endblock content %}
