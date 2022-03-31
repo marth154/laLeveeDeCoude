@@ -1,4 +1,5 @@
 from operator import ge
+from reprlib import recursive_repr
 from django.shortcuts import render
 
 # from .models import User
@@ -11,6 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -60,19 +62,21 @@ def registerCredentials(request):
         return render(request, 'register.html', context)
 
 
+@login_required(login_url="/login")
 def bar(request):
     return render(request, 'bar.html')
 
 
+@login_required(login_url="/login")
 def favorites(request):
     recipes_with_ingredient = []
     try:
-        my_favorites = Favorite.objects.filter(user=request.user)
+        my_favorites = Favorite.objects.filter(user_id=request.user)
     except:
         my_favorites = False
-    
     for recipe in my_favorites:
         recipes_with_ingredient.append(get_ingredient(recipe.recipe))
+        # recipes_with_ingredient.append(recipe.recipe)
     return render(request, 'my-favorite.html', {'my_favorites': recipes_with_ingredient})
 
 
@@ -83,6 +87,7 @@ def get_ingredient(recipe):
     ingredients = Ingredient_Group.objects.filter(recipe=recipe)
     for ingredient in ingredients:
         list_ingredient.append(ingredient)
+    print(array_recipe_ingredients)
     array_recipe_ingredients.extend([list_ingredient])
     array_recipe_ingredients.extend([recipe])
     return array_recipe_ingredients
