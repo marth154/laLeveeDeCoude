@@ -1,4 +1,3 @@
-from abc import abstractmethod, abstractproperty
 from dataclasses import fields
 from pickle import FALSE
 from django.db import models
@@ -14,6 +13,8 @@ from Recipe.models import Recipe
 from Recipe.models import Category, Glass, Recipe
 from User.views import get_ingredient
 
+
+from Recipe.models import Recipe
 
 def getCategories():
     categories = [('', '')]
@@ -168,3 +169,21 @@ class CreateRecipe(forms.Form):
             ('True', 'Yes'),
         ]
     )
+
+
+class Test(models.Model):
+    categoriesList = getCategories()
+    glassesList = getGlasses()
+    alcoholicList = getAlcoholics()
+    ingredientsList = getIngredients()
+
+    name = models.CharField(max_length=250)
+    # categories = models.CharField(choices = categoriesList, max_length=300)
+    # glasses = models.CharField(choices = glassesList, max_length=300)
+    # alcoholics = models.CharField(choices = alcoholicList, max_length=300)
+    # ingredients = models.CharField(choices = ingredientsList, max_length=300)
+
+class CreateForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ('name', )
