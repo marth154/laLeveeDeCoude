@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 #@login_required(login_url="/login")
 def home(request):
     last_recipe_with_ingregients = []
-    latest_recipe = Recipe.objects.order_by('created_at')[:4]
+    latest_recipe = Recipe.objects.order_by('-created_at')[:4]
     for recipe in latest_recipe:
         last_recipe_with_ingregients.append(get_ingredient(recipe))
     categories = Category.objects.all()

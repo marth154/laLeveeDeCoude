@@ -11,13 +11,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <div class="my-5 d-flex flex-column justify-center">
-  {% comment %} <a href="/recipe/{{recipe.1.id}}" > {% endcomment %}
-    <img
-      src="{% static 'asset/default-recipe.png' %}"
-      alt="My image"
-      class="w-100"
-    />
-  <p class="text-uppercase font-weight-semibold ">{{category.name}}</p>
-  {% comment %} </a> {% endcomment %}
+  <a href="/recipe/list" >
+    <img src="{% static 'asset/categories/cocktail-' %}{{category.id}}.png" alt="My image" class="w-100 h-280px"/>
+    <p class="text-uppercase font-weight-regular fontSize40 font-family-secondary">{{category.name}}</p>
+  </a>
 </div>
 {% endblock content %}

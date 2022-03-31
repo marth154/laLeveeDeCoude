@@ -9,7 +9,7 @@ from Ingredient.models import Ingredient_Group
 from .models import Favorite
 from .forms import RegisterForms, LoginForms
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
