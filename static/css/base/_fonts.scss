@@ -26,7 +26,7 @@ h1 {
 
 p {
   color: $black;
-  font-size: $font-size16 !important;
+  font-size: $font-size16;
   font-weight: 400;
   line-height: 120%;
 }
@@ -57,9 +57,7 @@ p {
 }
 
 // Font sizes (from px to em)
-.fontSize5 {
-  font-size: $font-size5 !important;
-}
+
 .fontSize10 {
   font-size: $font-size10 !important;
 }

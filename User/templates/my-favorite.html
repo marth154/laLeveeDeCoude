@@ -12,5 +12,7 @@
     {% endfor %}
 </div>
 {%else%} 
-<p>No favorites</p>
+<p class="error-message">No favorites</p>
 {%endif%}
+
+{% include "footer.html" %}

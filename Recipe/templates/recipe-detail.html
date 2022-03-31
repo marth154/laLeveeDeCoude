@@ -31,8 +31,8 @@
       <span>{{recipe.steps}}</span>
     </div>
   </div>
-  
-  {% else %}
-    <p>No details found.</p>
-  {% endif %}
+{% else %}
+  <p class="error-message">No details found.</p>
+{% endif %}
+{% include "footer.html" %}
 {% endblock content %}
