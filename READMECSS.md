@@ -44,7 +44,11 @@ Utiliser la classe `.txt-${color}` où color est parmi les variables suivantes :
 
 ## Font
 
-TODO DOC
+### Size
+
+Utiliser la classe `.fontSize-${size}` où size est parmi les variables suivantes (c'est le nombre de px) : `10 à 26, 32, 36, 40, 60, 80`
+
+Exemple : si je veux un texte de 60px : `.fontSize-60`
 
 ## Margin / Padding
 
@@ -59,6 +63,7 @@ TODO DOC
 `.shadow-none`
 
 `.shadow-card`
+
 ## Display
 
 TODO DOC

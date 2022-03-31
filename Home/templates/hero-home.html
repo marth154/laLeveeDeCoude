@@ -11,11 +11,15 @@
 />
 {% endcompress %}
 
-<div id="hero-home" class="bg-color-bg-shade vh-90 position-relative">
+<div id="hero-home" class="bg-color-bg-shade vh-95 position-relative">
   <div class="container h-100">
     <div
       class="d-flex flex-column justify-content-center align-items-center h-100 z-index1 position-relative"
     >
+    <img
+    src="{% static 'asset/logo.svg' %}"
+    alt="Logo la levée de coude"
+  />
       <h1 class="text-center w-sm-100 w-md-60">
         Retrouve les recettes des meilleurs cocktails
       </h1>
@@ -31,6 +35,6 @@
   </div>
   <img
     src="{% static 'asset/hero-image.png' %}"
-    class="position-absolute b-0 l-0 z-index0"
+    class="position-absolute b-0 l-0 z-index0 bg-image"
   />
 </div>
