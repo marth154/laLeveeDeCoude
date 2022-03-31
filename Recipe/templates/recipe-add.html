@@ -1,5 +1,5 @@
-{% include "header.html" %} {% block content %} {% load static %} {% load
-compress %} {% compress css %}
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+{% include "header.html" %}
 <link
   type="text/x-scss"
   href="{% static 'css/base/main.scss' %}"

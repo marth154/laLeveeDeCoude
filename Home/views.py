@@ -1,10 +1,6 @@
 from django.shortcuts import render
 from Recipe.models import Category, Recipe, User
-from Ingredient.models import Ingredient_Group
-from django.http import Http404
-from django.shortcuts import render
-
-from django.contrib.auth.decorators import login_required
+from Ingredient.models import Ingredient_Group  
 # Create your views here.
 
 #@login_required(login_url="/login")

@@ -16,7 +16,8 @@ from User.views import get_ingredient
 
 from Recipe.models import Recipe
 
-def getCategories():
+
+def get_categories():
     categories = [('', '')]
     get_category = Category.objects.all()
     for category in get_category:
@@ -25,7 +26,7 @@ def getCategories():
     return categories
 
 
-def getGlasses():
+def get_glasses():
     glasses = [('', '')]
     get_glasses = Glass.objects.all()
     for glass in get_glasses:
@@ -33,7 +34,7 @@ def getGlasses():
     return glasses
 
 
-def getIngredients():
+def get_ingredients():
     ingredients = []
     get_ingredients = Ingredient.objects.all()
     for ingredient in get_ingredients:
@@ -42,21 +43,10 @@ def getIngredients():
     return ingredients
 
 
-def getAlcoholics():
-    alcoholic = [('', '')]
-    response = requests.get(
-        'https://www.thecocktaildb.com/api/json/v1/1/list.php?a=list').json()
-
-    for i in range(len(response['drinks'])):
-        alcoholic.append(
-            (response['drinks'][i]['strAlcoholic'], response['drinks'][i]['strAlcoholic']))
-    return alcoholic
-
-
 class SearchForms(forms.Form):
-    categoriesList = getCategories()
-    glassesList = getGlasses()
-    ingredientslist = getIngredients()
+    categoriesList = get_categories()
+    glassesList = get_glasses()
+    ingredientslist = get_ingredients()
 
     name = forms.CharField(
         label='Cocktail name',
@@ -95,27 +85,9 @@ class SearchForms(forms.Form):
 
 
 class CreateRecipe(forms.Form):
-    categoriesList = getCategories()
-    glassesList = getGlasses()
-    alcoholicList = getAlcoholics()
-    ingredientsList = getIngredients()
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     ingredientsList = getIngredients()
-
-    #     for i in range(len(ingredientsList) - 1):
-    #         field_name = 'ingredient_%s' % (i,)
-    #         self.fields[field_name] = forms.MultipleChoiceField(
-    #             required=False,
-    #             widget=forms.CheckboxSelectMultiple,
-    #             choices=ingredientsList
-    #         )
-
-    # def get_ingredient_fields(self):
-    #     for field_name in self.fields:
-    #         if field_name.startswith('ingredient_'):
-    #             yield self[field_name]
+    categoriesList = get_categories()
+    glassesList = get_glasses()
+    ingredientsList = get_ingredients()
 
     name = forms.CharField(
         label='Name of recipe',
@@ -139,19 +111,6 @@ class CreateRecipe(forms.Form):
         ],
     )
 
-    # ingredients = forms.MultipleChoiceField(
-    #     required=False,
-    #     widget=forms.MultiWidget(
-    #         widgets=[
-    #             forms.CheckboxSelectMultiple,
-    #             forms.TextInput(
-    #                 attrs={"placeholder": ("Quantity")}
-    #             )
-    #         ]
-    #     ),
-    #     widget=IngredientQuantity(),
-    #     choices=ingredientsList
-    # )
     ingredients = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple,
@@ -169,21 +128,4 @@ class CreateRecipe(forms.Form):
             ('True', 'Yes'),
         ]
     )
-
-
-class Test(models.Model):
-    categoriesList = getCategories()
-    glassesList = getGlasses()
-    alcoholicList = getAlcoholics()
-    ingredientsList = getIngredients()
-
-    name = models.CharField(max_length=250)
-    # categories = models.CharField(choices = categoriesList, max_length=300)
-    # glasses = models.CharField(choices = glassesList, max_length=300)
-    # alcoholics = models.CharField(choices = alcoholicList, max_length=300)
-    # ingredients = models.CharField(choices = ingredientsList, max_length=300)
-
-class CreateForm(forms.ModelForm):
-    class Meta:
-        model = Recipe
-        fields = ('name', )
+    
