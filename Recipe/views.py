@@ -61,10 +61,8 @@ def list(request):
     form = SearchForms()
     
     if(request.POST.get('remove')):
-        print('🚀 ~ file: views.py ~ line 60 ~ request.POST.get(`remove`)', request.POST.get('remove'));
         change_favorite(request.POST, request.user, request.POST.get('remove'))
     elif(request.POST.get('add')):
-        print('🚀 ~ file: views.py ~ line 62 ~ request.POST.get(`add`)', request.POST.get('add'));
         change_favorite(request.POST, request.user, request.POST.get('add'))
     
 
