@@ -1,3 +1,4 @@
+from abc import abstractmethod, abstractproperty
 from dataclasses import fields
 from pickle import FALSE
 from django.db import models
@@ -10,37 +11,45 @@ from Recipe.models import Category, Glass
 
 from Recipe.models import Recipe
 
+from Recipe.models import Category, Glass, Recipe
+from User.views import get_ingredient
 
-from Recipe.models import Recipe
 
 def getCategories():
     categories = [('', '')]
-
-    response = Category.objects.all()
-    for i in range(len(response)):
-        categories.append((response[i].id, response[i].name))
-
+    get_category = Category.objects.all()
+    for category in get_category:
+        categories.append(
+            (category.name, category.name))
     return categories
 
 
 def getGlasses():
     glasses = [('', '')]
-
-    response = Glass.objects.all()
-    for i in range(len(response)):
-        glasses.append((response[i].id, response[i].name))
-
+    get_glasses = Glass.objects.all()
+    for glass in get_glasses:
+        glasses.append((glass.name, glass.name))
     return glasses
 
 
 def getIngredients():
-    ingredients = [('', '')]
-
-    response = Ingredient.objects.all()
-    for i in range(len(response)):
-        ingredients.append((response[i].name, response[i].name))
-
+    ingredients = []
+    get_ingredients = Ingredient.objects.all()
+    for ingredient in get_ingredients:
+        ingredients.append(
+            (ingredient.name, ingredient.name))
     return ingredients
+
+
+def getAlcoholics():
+    alcoholic = [('', '')]
+    response = requests.get(
+        'https://www.thecocktaildb.com/api/json/v1/1/list.php?a=list').json()
+
+    for i in range(len(response['drinks'])):
+        alcoholic.append(
+            (response['drinks'][i]['strAlcoholic'], response['drinks'][i]['strAlcoholic']))
+    return alcoholic
 
 
 class SearchForms(forms.Form):
@@ -84,45 +93,78 @@ class SearchForms(forms.Form):
     )
 
 
-class Test(models.Model):
+class CreateRecipe(forms.Form):
     categoriesList = getCategories()
     glassesList = getGlasses()
     alcoholicList = getAlcoholics()
     ingredientsList = getIngredients()
 
-    name = models.CharField(max_length=250)
-    # categories = models.CharField(choices = categoriesList, max_length=300)
-    # glasses = models.CharField(choices = glassesList, max_length=300)
-    # alcoholics = models.CharField(choices = alcoholicList, max_length=300)
-    # ingredients = models.CharField(choices = ingredientsList, max_length=300)
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     ingredientsList = getIngredients()
 
-class CreateRecipe(forms.Form):
+    #     for i in range(len(ingredientsList) - 1):
+    #         field_name = 'ingredient_%s' % (i,)
+    #         self.fields[field_name] = forms.MultipleChoiceField(
+    #             required=False,
+    #             widget=forms.CheckboxSelectMultiple,
+    #             choices=ingredientsList
+    #         )
+
+    # def get_ingredient_fields(self):
+    #     for field_name in self.fields:
+    #         if field_name.startswith('ingredient_'):
+    #             yield self[field_name]
+
     name = forms.CharField(
         label='Name of recipe',
         widget=forms.TextInput(attrs={"placeholder": ("Name of recipe")})
     )
-    categories = forms.CharField(
-        label='Category',
-        widget=forms.TextInput(attrs={"placeholder": ("Category")}),
+    categories = forms.ChoiceField(
+        widget=forms.Select,
+        choices=categoriesList,
     )
-    glasses = forms.CharField(
-        label='Glass type',
-        widget=forms.TextInput(attrs={"placeholder": ("Glass type")})
+    glasses = forms.ChoiceField(
+        widget=forms.Select,
+        choices=glassesList,
     )
-    alcoholics = forms.CharField(
-        label='Alcoholic',
-        widget=forms.TextInput(attrs={"placeholder": ("Alcoholic")})
+    alcoholic = forms.ChoiceField(
+        widget=forms.Select,
+        choices=[
+            ('', ''),
+            ('True', 'Alcoholic'),
+            ('False', 'No Alcoholic'),
+            # ('Optional alcohol', 'Optional alcohol'),
+        ],
     )
-    for i in range(5):
-        ingredients = forms.BooleanField(
-            label=str('Ingredient ' + str(i) ),
-            # widget=forms.TextInput(attrs={"placeholder": (str("Ingredient " + i ))})
-        )
+
+    # ingredients = forms.MultipleChoiceField(
+    #     required=False,
+    #     widget=forms.MultiWidget(
+    #         widgets=[
+    #             forms.CheckboxSelectMultiple,
+    #             forms.TextInput(
+    #                 attrs={"placeholder": ("Quantity")}
+    #             )
+    #         ]
+    #     ),
+    #     widget=IngredientQuantity(),
+    #     choices=ingredientsList
+    # )
+    ingredients = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        choices=ingredientsList
+    )
     steps = forms.CharField(
         label='Steps',
-        widget=forms.TextInput(attrs={"placeholder": ("Steps")})
+        widget=forms.Textarea(attrs={"placeholder": ("Steps")})
     )
-    is_shared = forms.BooleanField(
-        label="Is shared"
+    is_shared = forms.ChoiceField(
+        label='Is shared',
+        widget=forms.Select,
+        choices=[
+            ('False', 'No'),
+            ('True', 'Yes'),
+        ]
     )
-    
