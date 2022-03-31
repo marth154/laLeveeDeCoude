@@ -1,40 +1,43 @@
 from pickle import FALSE
+from urllib import response
 from django import forms
 from django.shortcuts import render
 import requests
+from Ingredient.models import Ingredient
+
+from Recipe.models import Category, Glass
 
 def getCategories():
     categories = [('' , '')]
-    response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list').json()
-    for i in range(len(response['drinks'])):
-        categories.append((response['drinks'][i]['strCategory'], response['drinks'][i]['strCategory']))
+
+    response = Category.objects.all()
+    for i in range(len(response)):
+        categories.append((response[i].id, response[i].name))
+
     return categories
 
 def getGlasses():
     glasses = [('' , '')]
-    response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list').json()
-    for i in range(len(response['drinks'])):
-        glasses.append((response['drinks'][i]['strGlass'], response['drinks'][i]['strGlass']))
+    
+    response = Glass.objects.all()
+    for i in range(len(response)):
+        glasses.append((response[i].id  , response[i].name))
+
     return glasses
 
 def getIngredients():
     ingredients = [('' , '')]
-    response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list').json()
-    for i in range(len(response['drinks'])):
-        ingredients.append((response['drinks'][i]['strIngredient1'], response['drinks'][i]['strIngredient1']))
-    return ingredients
+    
+    response = Ingredient.objects.all()
+    for i in range(len(response)):
+        ingredients.append((response[i].name, response[i].name))
 
-def getAlcoholics():
-    alcoholic = [('' , '')]
-    response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?a=list').json()
-    for i in range(len(response['drinks'])):
-        alcoholic.append((response['drinks'][i]['strAlcoholic'], response['drinks'][i]['strAlcoholic']))
-    return alcoholic
+    return ingredients
 
 class SearchForms(forms.Form):
     categoriesList = getCategories()
     glassesList = getGlasses()
-    alcoholicList = getAlcoholics()
+    ingredientslist = getIngredients()
 
     name = forms.CharField(
         label='Cocktail name',
@@ -54,8 +57,19 @@ class SearchForms(forms.Form):
         required = False
     )
 
-    alcoholics = forms.ChoiceField(
+    alcoholic = forms.ChoiceField(
+        widget=forms.Select,
+        choices=[
+            ('', ''),
+            ('True', 'Alcoholic'),
+            ('False', 'Non Alcoholic'),
+            # ('Optional alcohol', 'Optional alcohol'),
+        ],
+        required = False
+    )
+
+    ingredients = forms.ChoiceField(
         widget= forms.Select,
-        choices = alcoholicList,
+        choices = ingredientslist,
         required = False
     )

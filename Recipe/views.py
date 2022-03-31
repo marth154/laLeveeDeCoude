@@ -1,3 +1,4 @@
+from django.db import connection
 from django.shortcuts import render
 from urllib3.util import Retry
 import requests
@@ -56,22 +57,25 @@ def list(request):
     form = SearchForms()
     
     if(request.POST.get('remove')):
+        print('🚀 ~ file: views.py ~ line 60 ~ request.POST.get(`remove`)', request.POST.get('remove'));
         change_favorite(request.POST, request.user, request.POST.get('remove'))
     elif(request.POST.get('add')):
+        print('🚀 ~ file: views.py ~ line 62 ~ request.POST.get(`add`)', request.POST.get('add'));
         change_favorite(request.POST, request.user, request.POST.get('add'))
     
 
     if request.method == "POST":
         if request.POST.get("name"):
-            query = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + \
-                request.POST.get("name")
-            response = requests.get(query)
-            parsed = response.json()
+            recipe_name = request.POST.get("name")
+            response = Recipe.objects.filter(name__icontains=recipe_name)
 
-            if parsed['drinks'] is not None:
+            if response is not None:
                 finalList = []
-                for i in range(len(parsed['drinks'])):
-                    finalList.append(format_recipe(request,parsed['drinks'][i]))
+                for recipe in response:
+                    finalList.append(recipe)
+
+                paginateList = paginator(request, finalList)
+
                 context = {
                     'form': form,
                     'recipes': finalList,
@@ -82,23 +86,19 @@ def list(request):
                 }
 
         elif request.POST.get("categories"):
-            query = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=' + \
-                request.POST.get("categories")
-            response = requests.get(query)
-            parsed = response.json()
+            category_id = request.POST.get("categories")
+            response = Recipe.objects.filter(category_id_id=category_id)
 
-            drinksIds = []
-            if parsed['drinks'] is not None:
-                for i in range(len(parsed['drinks'])):
-                    drinksIds.append(parsed['drinks'][i]['idDrink'])
+            if response is not None:
                 finalList = []
-                for i in range(len(drinksIds)):
-                    responseDrink = requests.get(
-                        'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + drinksIds[i]).json()
-                    finalList.append(format_recipe(request,responseDrink['drinks'][0]))
+                for recipe in response:
+                    finalList.append(recipe)
+
+                paginateList = paginator(request, finalList)
+
                 context = {
                     'form': form,
-                    'recipes': finalList,
+                    'recipes': paginateList,
                 }
             else:
                 context = {
@@ -106,47 +106,39 @@ def list(request):
                 }
 
         elif request.POST.get("glasses"):
-            query = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=' + \
-                request.POST.get("glasses")
-            response = requests.get(query)
-            parsed = response.json()
+            glass_id = request.POST.get("glasses")
+            response = Recipe.objects.filter(glass_id_id=glass_id)
 
-            drinksIds = []
-            if parsed['drinks'] is not None:
-                for i in range(len(parsed['drinks'])):
-                    drinksIds.append(parsed['drinks'][i]['idDrink'])
+            if response is not None:
                 finalList = []
-                for i in range(len(drinksIds)):
-                    responseDrink = requests.get(
-                        'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + drinksIds[i]).json()
-                    finalList.append(format_recipe(request,responseDrink['drinks'][0]))
+                for recipe in response:
+                    finalList.append(recipe)
+
+                paginateList = paginator(request, finalList)
+
                 context = {
                     'form': form,
-                    'recipes': finalList,
+                    'recipes': paginateList,
                 }
             else:
                 context = {
                     'form': form,
                 }
 
-        elif request.POST.get("alcoholics"):
-            query = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=' + \
-                request.POST.get("alcoholics")
-            response = requests.get(query)
-            parsed = response.json()
+        elif request.POST.get("alcoholic"):
+            is_alcoholic = request.POST.get("alcoholic")
+            response = Recipe.objects.filter(is_alcoholic=is_alcoholic)
 
-            drinksIds = []
-            if parsed['drinks'] is not None:
-                for i in range(len(parsed['drinks'])):
-                    drinksIds.append(parsed['drinks'][i]['idDrink'])
+            if response is not None:
                 finalList = []
-                for i in range(len(drinksIds)):
-                    responseDrink = requests.get(
-                        'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + drinksIds[i]).json()
-                    finalList.append(format_recipe(request,responseDrink['drinks'][0]))
+                for recipe in response:
+                    finalList.append(recipe)
+
+                paginateList = paginator(request, finalList)
+
                 context = {
                     'form': form,
-                    'recipes': finalList,
+                    'recipes': paginateList,
                 }
             else:
                 context = {
@@ -154,33 +146,25 @@ def list(request):
                 }
 
         else:
-            response = requests.get(
-                'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a')
-            parsed = response.json()
+            response = Recipe.objects.all();
             finalList = []
-            for i in range(len(parsed['drinks'])):
-                finalList.append(format_recipe(request,parsed['drinks'][i]))
+            for recipe in response:
+                finalList.append(recipe)
+
+            paginateList = paginator(request, finalList)
+
             context = {
                 'form': form,
-                'recipes': finalList,
+                'recipes': paginateList,
             }
 
     else:
-        response = requests.get(
-            'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a')
-        parsed = response.json()
+        response = Recipe.objects.all();
         finalList = []
-        for i in range(len(parsed['drinks'])):
-            finalList.append(format_recipe(request,parsed['drinks'][i]))
+        for recipe in response:
+            finalList.append(recipe)
 
-        paginator = Paginator(finalList, 10)
-        page = request.GET.get('page', 1)
-        try:
-            paginateList = paginator.page(page)
-        except PageNotAnInteger:
-            paginateList = paginator.page(1)
-        except EmptyPage:
-            paginateList = paginator.page(paginator.num_pages)
+        paginateList = paginator(request, finalList)
 
         context = {
             'form': form,
@@ -209,13 +193,13 @@ def recipe_detail(request, id):
     return render(request, 'recipe-detail.html', context)
 
 
-def change_favorite(post, username, recipre_id):
+def change_favorite(post, username, recipe_id):
     if(post.get('remove')):
-        recipe = Recipe.objects.get(pk=recipre_id)
+        recipe = Recipe.objects.get(pk=recipe_id)
         user = User.objects.get(username=username)
         Favorite.objects.filter(user=user, recipe=recipe).delete()
     elif(post.get('add')):
-        recipe = Recipe.objects.get(pk=recipre_id)
+        recipe = Recipe.objects.get(pk=recipe_id)
         user = User.objects.get(username=username)
         Favorite.objects.create(user=user,recipe=recipe)
         
@@ -228,3 +212,25 @@ def checked_favorite(user, recipe):
             return False
     except:
         return None
+
+def get_ingredient(recipe):
+    list_ingredient = []
+    array_recipe_ingredients = []
+    ingredients = Ingredient_Group.objects.filter(recipe=recipe)
+    for ingredient in ingredients:
+        list_ingredient.append(ingredient)
+    array_recipe_ingredients.extend([list_ingredient])
+    array_recipe_ingredients.extend([recipe])
+    return array_recipe_ingredients
+
+def paginator(request, recipes_list):
+    paginator = Paginator(recipes_list, 20)
+    page = request.GET.get('page', 1)
+    try:
+        paginateList = paginator.page(page)
+    except PageNotAnInteger:
+        paginateList = paginator.page(1)
+    except EmptyPage:
+        paginateList = paginator.page(paginator.num_pages)
+
+    return paginateList
