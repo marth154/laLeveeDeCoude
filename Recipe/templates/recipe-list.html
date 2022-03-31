@@ -14,10 +14,12 @@
 </div>
 
 {% if recipes %}
-  <div class="container">
-    {% for recipe in recipes %} 
-      {% include "card-recipe-horizontal.html" with recipe=recipe %}
-    {% endfor %}
+  <div class="container justify-content-center">
+    <div class="grid-md-column2">
+      {% for recipe in recipes %} 
+        {% include "card-recipe-horizontal.html" with recipe=recipe %}
+      {% endfor %}
+    </div>
     {% if recipes.has_other_pages %}
     <nav aria-label="pagination mb-5">
     <ul class="pagination">
