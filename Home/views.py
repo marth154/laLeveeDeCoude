@@ -1,10 +1,6 @@
 from django.shortcuts import render
 from Recipe.models import Category, Recipe, User
-from Ingredient.models import Ingredient, Ingredient_Group
-from django.http import Http404
-from django.shortcuts import render
-
-from django.contrib.auth.decorators import login_required
+from Ingredient.models import Ingredient_Group  
 # Create your views here.
 
 #@login_required(login_url="/login")
@@ -15,9 +11,8 @@ def home(request):
         last_recipe_with_ingregients.append(get_ingredient(recipe))
     categories = Category.objects.all()
     users = User.objects.all()
-    ingredients = Ingredient.objects.all()
     
-    context = { "latest_recipe": last_recipe_with_ingregients, "categories": categories, "ingredients": ingredients, "users": users}
+    context = { "latest_recipe": last_recipe_with_ingregients, "categories": categories, "users": users}
     if request.user:
         return render(request, 'home.html', context)
     else:
