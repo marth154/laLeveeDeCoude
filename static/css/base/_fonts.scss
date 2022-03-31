@@ -26,7 +26,7 @@ h1 {
 
 p {
   color: $black;
-  font-size: $font-size16 !important;
+  font-size: $font-size16;
   font-weight: 400;
   line-height: 120%;
 }
@@ -57,9 +57,7 @@ p {
 }
 
 // Font sizes (from px to em)
-.fontSize5 {
-  font-size: $font-size5 !important;
-}
+
 .fontSize10 {
   font-size: $font-size10 !important;
 }
@@ -123,16 +121,16 @@ p {
 
 // Font weight
 .font-weight-bold {
-  font-weight: $font-weight-bold !important;
+  font-weight: 900 !important;
 }
 .font-weight-semibold {
-  font-weight: $font-weight-semibold !important;
+  font-weight: 700 !important;
 }
 .font-weight-normal {
-  font-weight: $font-weight-normal !important;
+  font-weight: 400 !important;
 }
 .font-weight-light {
-  font-weight: $font-weight-light !important;
+  font-weight: 300 !important;
 }
 
 // Line height

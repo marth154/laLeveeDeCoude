@@ -1,40 +1,30 @@
 <form method="POST">
-  {% csrf_token %} 
-  <div>
-    <div class="input_label">
-      {{form.name.label}}
+  {% csrf_token %}
+  <div class="d-flex flex-row" style="column-gap: 20px">
+    <div>
+      <div class="input__label">{{form.name.label}}</div>
+      <div class="input__field">{{form.name}}</div>
     </div>
-    <div class="input_field">
-      {{form.name}}
+    <div>
+      <div class="input__label">{{form.categories.label}}</div>
+      <div class="input__field">{{form.categories}}</div>
     </div>
-  </div>
-  <div>
-    <div class="input_label">
-      {{form.categories.label}}
-    </div>
-    <div class="input_field">
-      {{form.categories}}
+    <div>
+      <div class="input__label">{{form.glasses.label}}</div>
+      <div class="input__field">{{form.glasses}}</div>
     </div>
   </div>
-  <div>
-    <div class="input_label">
-      {{form.glasses.label}}
+
+  <div class="grid-column1 mt-3">
+    <div>
+      <div class="input__label">{{form.alcoholic.label}}</div>
+      <div class="input__field">{{form.alcoholic}}</div>
     </div>
-    <div class="input_field">
-      {{form.glasses}}
-    </div>
+
+    <input
+      type="submit"
+      value="Search"
+      class="button primary"
+    />
   </div>
-  <div>
-    <div class="input_label">
-      {{form.alcoholics.label}}
-    </div>
-    <div class="input_field">
-      {{form.alcoholics}}
-    </div>
-  </div>
-  <input
-    type="submit"
-    value="Rechercher"
-    class="button-submit text-style-button-text"
-  />
 </form>

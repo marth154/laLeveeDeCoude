@@ -1,1 +1,21 @@
-<p>Footer</p>
+
+{% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  
+/>
+
+{% endcompress %}
+
+
+<div class="bg-color-bg-shade mt-3">
+    <div class="container py-2">
+        <p class="m-1 fontSize-10">©La Levée de Coude - All Rights Reserved</p>
+    </div>
+    </div>
+</div>
+
+
+

@@ -7,11 +7,12 @@
 
 {% endcompress %}
 
-<div class="container">
+<div class="container text-center my-4">
+  <h2>Les dernieres recettes</h2>
 {% if latest_recipe %}
   <div class="grid-xs-column1 grid-sm-column2 grid-md-column3 grid-lg-column4">
       {% for recipe in latest_recipe %}
-        {% include "card-recipe.html" with recipe=recipe categories=categories ingredient=ingredients %} 
+        {% include "card-recipe.html" with recipe=recipe %} 
       {% endfor %}
   </div>
 {% else %}

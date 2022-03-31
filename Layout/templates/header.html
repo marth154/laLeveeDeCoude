@@ -1,1 +1,33 @@
-<p>Header</p>
+{% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+  
+/>
+
+{% endcompress %}
+
+<div class="bg-color-primary">
+    <div class="container py-3">
+    <div class="d-flex justify-content-between align-items-center">
+
+    {% if user.is_authenticated %}
+        <p class="txt-white font-weight-semibold my-0">{{user.email}}</p>
+    {% endif %}
+    <div class="txt-white font-weight-semibold d-flex justify-content-end w-100">
+        <a class="font-weight-semibold txt-white my-0 mx-3" href="/">Accueil</a> <span>|</span>
+        <a class="font-weight-semibold txt-white my-0 mx-3" href="/recipe/list">Les recettes</a> <span>|</span>
+        {% if user.is_authenticated %}
+
+        <a class="font-weight-semibold txt-white my-0 mx-3" href="/bar">Mon bar</a> <span>|</span>
+            <a class="font-weight-semibold txt-white my-0 mx-3" href="/logout">Se déconnecter</a>
+        {% else %}
+
+            <a class="font-weight-semibold txt-white my-0 mx-3" href="/login">Se connecter</a>
+        {% endif %}
+    </div>
+</div>
+    </div>
+</div>
+

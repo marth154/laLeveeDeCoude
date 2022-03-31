@@ -8,23 +8,31 @@
 
 {% endcompress %}
 
+{% include "header.html" %}
+
 {% if response %}
   {% include "card-recipe-details.html" with response=response %}
-    <div class="bg-color-bg-shade">
+  <div class="bg-color-bg-shade ">
+    <div class="container py-6">
       <h3>Instructions</h3>
       <span>{{response.strInstructions}}</span>
     </div>
-    <div>
-      <h2>Other recipes</h2>
-      {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}
-    </div>
-{% elif recipe %}
+  </div>
+
+  <div class="container my-5">
+      {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}</div>
+  </div>
+  
+  {% elif recipe %}
   {% include "card-recipe-details.html" with recipe=recipe categories=categories ingredients=ingredients users=users glasses=glasses %}
-  <div class="bg-color-bg-shade">
-    <h3>Instructions</h3>
-    <span>{{recipe.steps}}</span>
+  <div class="bg-color-bg-shade ">
+    <div class="container py-6">
+      <h3>Instructions</h3>
+      <span>{{recipe.steps}}</span>
+    </div>
   </div>
 {% else %}
-  <p>No details found.</p>
+  <p class="error-message">No details found.</p>
 {% endif %}
+{% include "footer.html" %}
 {% endblock content %}

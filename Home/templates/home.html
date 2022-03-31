@@ -1,16 +1,24 @@
-{% comment %} {% block content %} {% load static %} {% load compress %} {% compress css %}
+ {% block content %} {% load static %} {% load compress %} {% compress css %}
 <link
   type="text/x-scss"
   href="{% static 'css/base/main.scss' %}"
   rel="stylesheet"
   
 />
-{% endcompress %} {% endcomment %}
+{% endcompress %} 
+
+{% include "header.html" %}
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <div >
   <div> {% include "hero-home.html"%} </div>
   <div> {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}</div>
+  <div> {% include "categories.html" with categories=categories %}</div>
 </div>
 
-{% comment %} {% endblock content %} {% endcomment %}
+
+{% include "footer.html" %}
+
+
+ {% endblock content %} 
     

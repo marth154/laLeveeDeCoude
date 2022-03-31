@@ -9,12 +9,12 @@ form {
 .input__label {
   color: $dark-grey;
   font-weight: 400;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
-.input__field > input {
+.input__field > input, .input__field > select{
   border: 1px solid $dark-grey;
   padding: 6px 12px;
   border-radius: 4px;
+  background-color: $white;
 }

@@ -1,51 +1,47 @@
 {% load static %}
 
 {% load compress %} {% compress css %}
-<link
-  type="text/x-scss"
-  href="{% static 'css/base/main.scss' %}"
-  rel="stylesheet"
-  
-/>
+<link type="text/x-scss" href="{% static 'css/base/main.scss' %}" rel="stylesheet" />
 
-<link
-  type="text/x-scss"
-  href="{% static 'css/custom/card-recipe-horizontal.scss' %}"
-  rel="stylesheet"
-  
-/>
+<link type="text/x-scss" href="{% static 'css/custom/card-recipe-horizontal.scss' %}" rel="stylesheet" />
+
+<link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
 {% endcompress %}
 
-<div  class="custom-card p-4 mb-4">
-<a href="/recipe/{{recipe.idDrink}}">
-    <div class="d-flex">
-        <div class="custom-wrapper-image">
-          <img src={{recipe.strDrinkThumb}} >
-        </div>
-        <div class="ml-4">
-            <div class="d-flex">
-              <span class="tag accent-middle mr-2">{{recipe.strCategory}}</span>
-              <span class="tag blue mr-2">{{recipe.strGlass}}</span>
-              <span class="tag green mr-2">{{recipe.strAlcoholic}}</span>
-              </div>
-            <h2>{{recipe.strDrink}}</h2>
-            <p ><small>By TODO</small></p>
-            <p>  
-              <strong>Ingrédients : </strong>
-              {% for ingredient in recipe.strIngredients %}
-              <span>{{ingredient}}</span>
-              {% endfor %}
-            </p>
-            <form method="POST">
-              {% if recipe.is_favorite %}
-                  <button type="submit" name="remove" value="{{recipe.idDrink}}" class="button secondary">Remove to favorites</button>
-              {% else %}
-                  <button type="submit" name="add" value="{{recipe.idDrink}}" class="button secondary">Add to favorites</button>
-              {% endif %}
-            </form>
-        </div>
+<div class="custom-card p-4 mb-4">
+  <div class="d-flex">
+    <div class="custom-wrapper-image">
+      <img src={{recipe.thumbnail}}>
+    </div>
+    <div class="ml-4">
+      <div class="d-flex">
+        <span class="tag accent-middle mr-2">{{recipe.category_id.name}}</span>
+        <span class="tag blue mr-2">{{recipe.glass_id.name}}</span>
+        {% if recipe.is_alcoholic == True %}
+        <span class="tag green mr-2">Alcoholic</span>
+        {% else %}
+        <span class="tag green mr-2">Non alcoholic</span>
+        {% endif %}
       </div>
-    </a>
+      <h2>{{recipe.name}}</h2>
+      <p><small>By {{recipe.user_id.username}}</small></p>
+      <div class="d-flex">
+        <a class="mr-2" href="/recipe/{{recipe.pk}}">
+          <button name="detail" class="button secondary">Details</button>
+        </a>
+        <form method="POST">
+          {% if recipe.is_favorite %}
+          <button type="submit" name="remove" value="{{recipe.id}}" class="btn"> 
+            <i class="fa-solid fa-heart"></i>
+            <span>favorites</span>
+          </button>
+          {% else %}
+          <button type="submit" name="add" value="{{recipe.id}}" class="btn">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-
-
