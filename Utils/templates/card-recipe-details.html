@@ -51,7 +51,7 @@
                 <li>{{ ingredient.ingredient.name }} : {{ingredient.quantity}} </li>
                 {% endfor %}
             </ul>
-            <form method="POST">
+            <form method="POST" class="custom-form">
                 {% if is_favorite %}
                     <button type="submit" name="remove" value="true" class="button secondary">Remove to favorites</button>
                 {% else %}

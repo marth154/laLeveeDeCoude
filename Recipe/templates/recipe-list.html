@@ -8,7 +8,10 @@
 
 {% include "header.html" %}
 
-{% include "recipe-search.html" %}
+<div class="bg-color-bg-shade text-center mb-5">
+  <h1>Toutes les recettes</h1>
+  {% include "recipe-search.html" %}
+</div>
 
 {% if recipes %}
   <div class="container">
