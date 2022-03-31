@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render
 from Home.views import get_ingredient
 from Ingredient.models import Ingredient, Ingredient_Group
 from User.models import Favorite
-
+import random
 from Recipe.forms import CreateRecipe, SearchForms
 from Recipe.models import Category, Glass, Recipe, User
 
@@ -24,16 +24,26 @@ def get_recipe():
 
 
 def random(request):
-    response = requests.get(
-        'https://www.thecocktaildb.com/api/json/v1/1/random.php').json()
-    parsedResponse = format_recipe(request,response['drinks'][0])
     
     recipes_with_ingredient = []
     latest_recipe = Recipe.objects.order_by('created_at')[:4]
     for recipe in latest_recipe:
         recipes_with_ingredient.append(get_ingredient(recipe))
-
-    context = {'latest_recipe': recipes_with_ingredient, 'response': parsedResponse}
+            
+    if(request.method == 'POST'):
+        if(request.POST.get('remove')):
+            change_favorite(request.POST, request.user, request.POST.get('remove'))
+            recipe = Recipe.objects.get(pk=request.POST.get('remove'))
+        elif(request.POST.get('add')):
+            change_favorite(request.POST, request.user, request.POST.get('add'))
+            recipe = Recipe.objects.get(pk=request.POST.get('add'))
+        context = {'latest_recipe': recipes_with_ingredient, 'recipe': get_ingredient(recipe), "is_favorite": checked_favorite(request.user, recipe)}
+        
+        
+    if(request.method == "GET"):
+        recipe = Recipe.objects.order_by('?').first()
+        context = {'latest_recipe': recipes_with_ingredient, 'recipe': get_ingredient(recipe), "is_favorite": checked_favorite(request.user, recipe)}
+    
     return render(request, 'recipe-detail.html', context)
 
 
@@ -53,7 +63,7 @@ def get_id(n):
 
 def list(request):
     form = SearchForms()
-
+    
     if(request.POST.get('remove')):
         change_favorite(request.POST, request.user, request.POST.get('remove'))
     elif(request.POST.get('add')):
@@ -179,7 +189,10 @@ def recipe_detail(request, id):
         glasses = Glass.objects.all()
         users = User.objects.all()
         ingredients = Ingredient_Group.objects.filter(recipe=recipe)
-        is_favorite = Favorite.objects.filter(user=request.user, recipe=recipe)
+        if request.user.is_authenticated:
+            is_favorite = Favorite.objects.filter(user=request.user, recipe=recipe)
+        else:
+            is_favorite = None
         context = {'recipe': recipe, "latest_recipe": latest_recipe, "categories": categories,
                    "ingredients": ingredients, "glasses": glasses, "users": users, 'is_favorite': is_favorite}
 
@@ -194,7 +207,10 @@ def change_favorite(post, username, recipe_id):
         user = User.objects.get(username=username)
         Favorite.objects.filter(user=user, recipe=recipe).delete()
     elif(post.get('add')):
-        recipe = Recipe.objects.get(pk=recipe_id)
+        try:
+            recipe = Recipe.objects.get(pk=recipe_id)
+        except Recipe.DoesNotExist:
+            raise Http404("Recipe does not exist")
         user = User.objects.get(username=username)
         Favorite.objects.create(user=user, recipe=recipe)
 
@@ -252,7 +268,6 @@ def add(request):
         )
         for ingredient in request.POST.getlist("ingredients"):
             new_ingredient = Ingredient.objects.filter(name=ingredient)
-            print(new_ingredient, ingredient)
             for ing in new_ingredient:
                 Ingredient_Group.objects.create(
                     recipe=new_cocktail, ingredient=ing, quantity="")

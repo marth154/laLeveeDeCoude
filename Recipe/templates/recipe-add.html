@@ -1,5 +1,4 @@
 {% block content %} {% load static %} {% load compress %} {% compress css %}
-{% include "header.html" %}
 <link
   type="text/x-scss"
   href="{% static 'css/base/main.scss' %}"
@@ -11,6 +10,8 @@
   rel="stylesheet"
 />
 {% endcompress %}
+
+{% include "header.html" %}
 
 <form method="POST">
   {% csrf_token %}

@@ -10,25 +10,12 @@
 
 {% include "header.html" %}
 
-{% if response %}
-  {% include "card-recipe-details.html" with response=response %}
+{% if recipe %}
+  {% include "card-recipe-details.html" with recipe=recipe %}
   <div class="bg-color-bg-shade ">
     <div class="container py-6">
       <h3>Instructions</h3>
-      <span>{{response.strInstructions}}</span>
-    </div>
-  </div>
-
-  <div class="container my-5">
-      {% include "last-recipe.html" with latest_recipe=latest_recipe categories=categories ingredients=ingredients users=users %}</div>
-  </div>
-  
-  {% elif recipe %}
-  {% include "card-recipe-details.html" with recipe=recipe categories=categories ingredients=ingredients users=users glasses=glasses %}
-  <div class="bg-color-bg-shade ">
-    <div class="container py-6">
-      <h3>Instructions</h3>
-      <span>{{recipe.steps}}</span>
+      <span>{{recipe.1.steps}}</span>
     </div>
   </div>
 {% else %}

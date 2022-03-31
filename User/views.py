@@ -87,7 +87,6 @@ def get_ingredient(recipe):
     ingredients = Ingredient_Group.objects.filter(recipe=recipe)
     for ingredient in ingredients:
         list_ingredient.append(ingredient)
-    print(array_recipe_ingredients)
     array_recipe_ingredients.extend([list_ingredient])
     array_recipe_ingredients.extend([recipe])
     return array_recipe_ingredients
