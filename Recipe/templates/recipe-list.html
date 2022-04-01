@@ -1,14 +1,14 @@
 
 {% include "header.html" %}
 
-<div class="bg-color-bg-shade text-center mb-5">
-  <h1>Toutes les recettes</h1>
+<div class="bg-color-bg-shade text-center pt-5 pb-3 mb-6">
+  <h1 class="mt-0 pt-2">All recipes</h1>
   {% include "recipe-search.html" %}
 </div>
 
 {% if recipes %}
   <div class="container justify-content-center">
-    <div class="grid-md-column2">
+    <div class="grid-xs-column1 grid-md-column2">
       {% for recipe in recipes %} 
         {% include "card-recipe-horizontal.html" with recipe=recipe %}
       {% endfor %}
@@ -37,5 +37,6 @@
   </div>
 {% else %}
 <p class="error-message">Aucune donnée</p>
-{% include "footer.html" %}
 {% endif %}
+{% include "footer.html" %}
+
