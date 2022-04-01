@@ -9,18 +9,18 @@
 {% endcompress %}
 
 <div class="custom-card p-4 mb-4">
-  <div class="d-flex">
-    <div class="custom-wrapper-image w-20">
-      <img src={{recipe.thumbnail}}>
+  <div class="d-flex flex-wrap">
+    <div class="custom-wrapper-image mb-1">
+      <img src={{recipe.thumbnail}} "{{recipe.name}}">
     </div>
-    <div class="ml-4">
-      <div class="d-md-flex">
-        <span class="tag accent-middle mr-2">{{recipe.category_id.name}}</span>
-        <span class="tag blue mr-2">{{recipe.glass_id.name}}</span>
+    <div class="ml-4 mb-1">
+      <div class="d-flex flex-wrap">
+        <div class="tag accent-middle mr-2 mb-2">{{recipe.category_id.name}}</div>
+        <div class="tag blue mr-2 mb-2">{{recipe.glass_id.name}}</div>
         {% if recipe.is_alcoholic == True %}
-        <span class="tag green mr-2">Alcoholic</span>
+        <div class="tag green mr-2 mb-2">Alcoholic</div>
         {% else %}
-        <span class="tag green mr-2">Non alcoholic</span>
+        <div class="tag green mr-2 mb-2">Non alcoholic</div>
         {% endif %}
       </div>
       <h2>{{recipe.name}}</h2>
@@ -29,21 +29,6 @@
         <a class="mr-2" href="/recipe/{{recipe.pk}}">
           <button name="detail" class="button secondary">Details</button>
         </a>
-        
-        <!-- {% if user.is_authenticated %}
-          <form method="POST">
-            {% if recipe.is_favorite %}
-            <button type="submit" name="remove" value="{{recipe.id}}" class="btn"> 
-              <i class="fa-solid fa-heart"></i>
-              <span>favorites</span>
-            </button>
-            {% else %}
-            <button type="submit" name="add" value="{{recipe.id}}" class="btn">
-              <i class="fa-regular fa-heart"></i>
-            </button>
-            {% endif %}
-          </form>
-        {%endif%} -->
       </div>
     </div>
   </div>

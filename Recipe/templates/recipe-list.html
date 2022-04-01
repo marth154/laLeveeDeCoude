@@ -15,7 +15,7 @@
     </div>
     {% if recipes.has_other_pages %}
     <nav aria-label="pagination mb-5">
-      <ul class="pagination">
+      <ul class="pagination overflow-auto">
         {% if recipes.has_previous %}
           <li><a href="?page={{ recipes.previous_page_number }}">Previous</a></li>
         {% else %}
@@ -36,7 +36,7 @@
   {% endif %}
   </div>
 {% else %}
-<p class="error-message">Aucune donnée</p>
+<p class="error-message">Ne recipes found</p>
 {% endif %}
 {% include "footer.html" %}
 

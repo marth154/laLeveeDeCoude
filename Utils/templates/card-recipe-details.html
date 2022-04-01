@@ -34,9 +34,9 @@
 
         <div class="d-flex shadow-card my-4" >
             {%if recipe.1.thumbnail %}
-                <img src="{{recipe.1.thumbnail}}" alt="cocktail" class="w-410px m-3" />
+                <img src="{{recipe.1.thumbnail}}" alt="{{recipe.1.name}}" class="w-410px m-3" />
             {% elif recipe %}
-                <img src="{% static 'asset/default-recipe.png' %}" alt="cocktail" class="w-410px m-3" />
+                <img src="{% static 'asset/default-recipe.png' %}" alt="{{recipe.1.name}}" class="w-410px m-3" />
             {% endif %}
 
             <div class="pt-6 pl-6" style="text-align: left">

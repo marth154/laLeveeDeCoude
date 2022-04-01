@@ -31,10 +31,10 @@
         alt="Logo La levée de coude"
         style="width: 250; height: 250"
       />
-      <h1 class="m-0">Créer un compte</h1>
+      <h1 class="m-0">Create an account</h1>
       <div>
         {% if existing %}
-        <p class="error-message">Cet email existe deja</p>
+        <p class="error-message">This email already exist.</p>
         {% endif %}
         <form method="POST">
           {% csrf_token %}
@@ -47,8 +47,8 @@
           <input type="submit" value="S'inscrire" class="button primary" />
         </form>
         <p>
-          Vous avez déjà un compte ?
-          <a href="/login" class="underline-hover">Connectez-vous !</a>
+          You already have an account ?
+          <a href="/login" class="underline-hover">Sign in !</a>
         </p>
       </div>
     </div>
