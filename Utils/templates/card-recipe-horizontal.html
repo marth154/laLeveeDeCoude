@@ -10,7 +10,7 @@
 
 <div class="custom-card p-4 mb-4">
   <div class="d-flex">
-    <div class="custom-wrapper-image">
+    <div class="custom-wrapper-image w-20">
       <img src={{recipe.thumbnail}}>
     </div>
     <div class="ml-4">
@@ -29,18 +29,21 @@
         <a class="mr-2" href="/recipe/{{recipe.pk}}">
           <button name="detail" class="button secondary">Details</button>
         </a>
-        <form method="POST">
-          {% if recipe.is_favorite %}
-          <button type="submit" name="remove" value="{{recipe.id}}" class="btn"> 
-            <i class="fa-solid fa-heart"></i>
-            <span>favorites</span>
-          </button>
-          {% else %}
-          <button type="submit" name="add" value="{{recipe.id}}" class="btn">
-            <i class="fa-regular fa-heart"></i>
-          </button>
-          {% endif %}
-        </form>
+        
+        <!-- {% if user.is_authenticated %}
+          <form method="POST">
+            {% if recipe.is_favorite %}
+            <button type="submit" name="remove" value="{{recipe.id}}" class="btn"> 
+              <i class="fa-solid fa-heart"></i>
+              <span>favorites</span>
+            </button>
+            {% else %}
+            <button type="submit" name="add" value="{{recipe.id}}" class="btn">
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            {% endif %}
+          </form>
+        {%endif%} -->
       </div>
     </div>
   </div>

@@ -1,18 +1,15 @@
-
-
 {% include "header.html" %}
-
-{%if my_favorites %} 
-
-<div class="container">
-    {% for fav in my_favorites %}
-      <div class="grid-xs-column1 grid-sm-column2 grid-md-column3 grid-lg-column4">
-        {% include "card-recipe.html" with recipe=fav %}
+  {%if my_favorites %}
+    <div class="container">
+      <div class="grid-md-column4">
+        {% for fav in my_favorites %}
+          <div>
+            {% include "card-recipe.html" with recipe=fav %}
+          </div>
+        {% endfor %}
       </div>
-    {% endfor %}
-</div>
-{%else%} 
+    </div>
+  {%else%}
 <p class="error-message">No favorites</p>
 {%endif%}
-
 {% include "footer.html" %}

@@ -1,5 +1,67 @@
+{% block content %} {% load static %} {% load compress %} {% compress css %}
+<link
+  type="text/x-scss"
+  href="{% static 'css/base/main.scss' %}"
+  rel="stylesheet"
+/>
+<link
+  type="text/x-scss"
+  href="{% static 'css/custom/login.scss' %}"
+  rel="stylesheet"
+/>
+{% endcompress %}
+
 {% include "header.html" %}
 
-<p>Add recipe</p>
+<form method="POST">
+  {% csrf_token %}
+  <div class="container">
+    <div class="grid-md-column3">
+      <div>
+        <div class="input_label">{{form.name.label}}</div>
+        <div class="input_field">{{form.name}}</div>
+      </div>
+      <div>
+        <div class="input_label">{{form.categories.label}}</div>
+        <div class="input_field">{{form.categories}}</div>
+      </div>
+      <div>
+        <div class="input_label">{{form.glasses.label}}</div>
+        <div class="input_field">{{form.glasses}}</div>
+      </div>
+    </div>
 
-{% include "footer.html" %}
+    <div class="grid-md-column2">
+      <div>
+        <div class="input_label">{{form.alcoholic.label}}</div>
+        <div class="input_field">{{form.alcoholic}}</div>
+      </div>
+
+      <div>
+        <div class="input_label">{{form.is_shared.label}}</div>
+        <div class="input_field">{{form.is_shared}}</div>
+      </div>
+    </div>
+
+
+    <div class="grid-md-column1">
+      <div>
+        <div class="input_label">{{form.ingredients.label}}</div>
+        <div class="input_field">{{form.ingredients }}<div> 
+      </div>
+    </div>
+    <div class="grid-md-column1">
+      <div>
+        <div class="input_label">{{form.steps.label}}</div>
+        <div class="input_field">{{form.steps}}</div>
+      </div>
+    </div>
+  </div>
+  <input
+    type="submit"
+    value="Créer"
+    class="button-submit text-style-button-text"
+  />
+</form>
+
+{% include "footer.html" %} {% endblock content %}

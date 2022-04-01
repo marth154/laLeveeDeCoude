@@ -1,22 +1,16 @@
-from django.db import connection
-from django.shortcuts import render
-from urllib3.util import Retry
+from datetime import datetime
 import requests
-from requests.adapters import HTTPAdapter
-from django.http import Http404
-from Home.views import get_ingredient
-from Recipe.models import Recipe, Category, Glass, User
-from Recipe.forms import SearchForms
-from Ingredient.models import Ingredient, Ingredient_Group
-
-from operator import concat
-
-import requests
+from django.contrib import messages
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.shortcuts import render
-
-from Recipe.forms import SearchForms
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from Home.views import get_ingredient
+from Ingredient.models import Ingredient, Ingredient_Group
 from User.models import Favorite
+import random
+from Recipe.forms import CreateRecipe, SearchForms
+from Recipe.models import Category, Glass, Recipe, User
+
 
 def get_recipe():
     latest_recipe = Recipe.objects.order_by('created_at')[:4]
@@ -30,16 +24,26 @@ def get_recipe():
 
 
 def random(request):
-    response = requests.get(
-        'https://www.thecocktaildb.com/api/json/v1/1/random.php').json()
-    parsedResponse = format_recipe(request,response['drinks'][0])
     
     recipes_with_ingredient = []
     latest_recipe = Recipe.objects.order_by('created_at')[:4]
     for recipe in latest_recipe:
         recipes_with_ingredient.append(get_ingredient(recipe))
-
-    context = {'latest_recipe': recipes_with_ingredient, 'response': parsedResponse}
+            
+    if(request.method == 'POST'):
+        if(request.POST.get('remove')):
+            change_favorite(request.POST, request.user, request.POST.get('remove'))
+            recipe = Recipe.objects.get(pk=request.POST.get('remove'))
+        elif(request.POST.get('add')):
+            change_favorite(request.POST, request.user, request.POST.get('add'))
+            recipe = Recipe.objects.get(pk=request.POST.get('add'))
+        context = {'latest_recipe': recipes_with_ingredient, 'recipe': get_ingredient(recipe), "is_favorite": checked_favorite(request.user, recipe)}
+        
+        
+    if(request.method == "GET"):
+        recipe = Recipe.objects.order_by('?').first()
+        context = {'latest_recipe': recipes_with_ingredient, 'recipe': get_ingredient(recipe), "is_favorite": checked_favorite(request.user, recipe)}
+    
     return render(request, 'recipe-detail.html', context)
 
 
@@ -64,7 +68,6 @@ def list(request):
         change_favorite(request.POST, request.user, request.POST.get('remove'))
     elif(request.POST.get('add')):
         change_favorite(request.POST, request.user, request.POST.get('add'))
-    
 
     if request.method == "POST":
         if request.POST.get("name"):
@@ -186,7 +189,10 @@ def recipe_detail(request, id):
         glasses = Glass.objects.all()
         users = User.objects.all()
         ingredients = Ingredient_Group.objects.filter(recipe=recipe)
-        is_favorite = Favorite.objects.filter(user=request.user, recipe=recipe)
+        if request.user.is_authenticated:
+            is_favorite = Favorite.objects.filter(user=request.user, recipe=recipe)
+        else:
+            is_favorite = None
         context = {'recipe': recipe, "latest_recipe": latest_recipe, "categories": categories,
                    "ingredients": ingredients, "glasses": glasses, "users": users, 'is_favorite': is_favorite}
 
@@ -201,16 +207,20 @@ def change_favorite(post, username, recipe_id):
         user = User.objects.get(username=username)
         Favorite.objects.filter(user=user, recipe=recipe).delete()
     elif(post.get('add')):
-        recipe = Recipe.objects.get(pk=recipe_id)
+        try:
+            recipe = Recipe.objects.get(pk=recipe_id)
+        except Recipe.DoesNotExist:
+            raise Http404("Recipe does not exist")
         user = User.objects.get(username=username)
-        Favorite.objects.create(user=user,recipe=recipe)
-        
+        Favorite.objects.create(user=user, recipe=recipe)
+
+
 def checked_favorite(user, recipe):
     try:
-        fav = Favorite.objects.get(user=user,recipe=recipe)
+        fav = Favorite.objects.get(user=user, recipe=recipe)
         if(fav is not None):
             return True
-        else: 
+        else:
             return False
     except:
         return None
@@ -236,3 +246,36 @@ def paginator(request, recipes_list):
         paginateList = paginator.page(paginator.num_pages)
 
     return paginateList
+def add(request):
+    form = CreateRecipe()
+    if request.method == "POST":
+        user = User.objects.get(username=request.user)
+        category = Category.objects.get(name=request.POST.get('categories'))
+        glass = Glass.objects.get(name=request.POST.get('glasses'))
+
+        new_cocktail = Recipe.objects.create(
+            name=request.POST.get('name'),
+            user_id=user,
+            category_id=category,
+            thumbnail="asset/default-recipe.png",
+            is_shared=request.POST.get('is_shared'),
+            is_migrate=False,
+            is_alcoholic=request.POST.get('alcoholic'),
+            glass_id=glass,
+            steps=request.POST.get('steps'),
+            created_at=datetime.now(),
+            updated_at=datetime.now()
+        )
+        for ingredient in request.POST.getlist("ingredients"):
+            new_ingredient = Ingredient.objects.filter(name=ingredient)
+            for ing in new_ingredient:
+                Ingredient_Group.objects.create(
+                    recipe=new_cocktail, ingredient=ing, quantity="")
+        # on prépare un nouveau message
+        messages.success(request, 'New cocktail created successfully !')
+        context = {'response': new_cocktail}
+
+        return HttpResponseRedirect('/recipe/' + str(new_cocktail.id))
+    # Si méthode GET, on présente le formulaire
+    context = {'form': form}
+    return render(request,'recipe-add.html', context)
