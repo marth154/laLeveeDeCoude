@@ -24,26 +24,29 @@ def get_recipe():
 
 
 def random(request):
-    
+
     recipes_with_ingredient = []
     latest_recipe = Recipe.objects.order_by('-created_at')[:4]
     for recipe in latest_recipe:
         recipes_with_ingredient.append(get_ingredient(recipe))
-            
+
     if(request.method == 'POST'):
         if(request.POST.get('remove')):
-            change_favorite(request.POST, request.user, request.POST.get('remove'))
+            change_favorite(request.POST, request.user,
+                            request.POST.get('remove'))
             recipe = Recipe.objects.get(pk=request.POST.get('remove'))
         elif(request.POST.get('add')):
-            change_favorite(request.POST, request.user, request.POST.get('add'))
+            change_favorite(request.POST, request.user,
+                            request.POST.get('add'))
             recipe = Recipe.objects.get(pk=request.POST.get('add'))
-        context = {'latest_recipe': recipes_with_ingredient, 'recipe': get_ingredient(recipe), "is_favorite": checked_favorite(request.user, recipe)}
-        
-        
+        context = {'latest_recipe': recipes_with_ingredient, 'recipe': get_ingredient(
+            recipe), "is_favorite": checked_favorite(request.user, recipe)}
+
     if(request.method == "GET"):
         recipe = Recipe.objects.order_by('?').first()
-        context = {'latest_recipe': recipes_with_ingredient, 'recipe': get_ingredient(recipe), "is_favorite": checked_favorite(request.user, recipe)}
-    
+        context = {'latest_recipe': recipes_with_ingredient, 'recipe': get_ingredient(
+            recipe), "is_favorite": checked_favorite(request.user, recipe)}
+
     return render(request, 'recipe-detail.html', context)
 
 
@@ -63,7 +66,7 @@ def get_id(n):
 
 def list(request):
     form = SearchForms()
-    
+
     if(request.POST.get('remove')):
         change_favorite(request.POST, request.user, request.POST.get('remove'))
     elif(request.POST.get('add')):
@@ -72,7 +75,8 @@ def list(request):
     if request.method == "POST":
         if request.POST.get("name"):
             recipe_name = request.POST.get("name")
-            response = Recipe.objects.filter(name__icontains=recipe_name)
+            response = Recipe.objects.filter(
+                name__icontains=recipe_name, is_shared=True)
 
             if response is not None:
                 finalList = []
@@ -92,7 +96,8 @@ def list(request):
 
         elif request.POST.get("categories"):
             category_id = request.POST.get("categories")
-            response = Recipe.objects.filter(category_id_id=category_id)
+            response = Recipe.objects.filter(
+                category_id_id=category_id, is_shared=True)
 
             if response is not None:
                 finalList = []
@@ -112,7 +117,8 @@ def list(request):
 
         elif request.POST.get("glasses"):
             glass_id = request.POST.get("glasses")
-            response = Recipe.objects.filter(glass_id_id=glass_id)
+            response = Recipe.objects.filter(
+                glass_id_id=glass_id, is_shared=True)
 
             if response is not None:
                 finalList = []
@@ -132,7 +138,8 @@ def list(request):
 
         elif request.POST.get("alcoholic"):
             is_alcoholic = request.POST.get("alcoholic")
-            response = Recipe.objects.filter(is_alcoholic=is_alcoholic)
+            response = Recipe.objects.filter(
+                is_alcoholic=is_alcoholic, is_shared=True)
 
             if response is not None:
                 finalList = []
@@ -151,7 +158,7 @@ def list(request):
                 }
 
         else:
-            response = Recipe.objects.all();
+            response = Recipe.objects.filter(is_shared=True)
             finalList = []
             for recipe in response:
                 finalList.append(recipe)
@@ -164,7 +171,7 @@ def list(request):
             }
 
     else:
-        response = Recipe.objects.all();
+        response = Recipe.objects.filter(is_shared=True)
         finalList = []
         for recipe in response:
             finalList.append(recipe)
@@ -190,7 +197,8 @@ def recipe_detail(request, id):
         users = User.objects.all()
         ingredients = Ingredient_Group.objects.filter(recipe=recipe)
         if request.user.is_authenticated:
-            is_favorite = Favorite.objects.filter(user=request.user, recipe=recipe)
+            is_favorite = Favorite.objects.filter(
+                user=request.user, recipe=recipe)
         else:
             is_favorite = None
         context = {'recipe': get_ingredient(recipe), "latest_recipe": latest_recipe, "categories": categories,
@@ -225,6 +233,7 @@ def checked_favorite(user, recipe):
     except:
         return None
 
+
 def get_ingredient(recipe):
     list_ingredient = []
     array_recipe_ingredients = []
@@ -234,6 +243,7 @@ def get_ingredient(recipe):
     array_recipe_ingredients.extend([list_ingredient])
     array_recipe_ingredients.extend([recipe])
     return array_recipe_ingredients
+
 
 def paginator(request, recipes_list):
     paginator = Paginator(recipes_list, 20)
@@ -246,6 +256,8 @@ def paginator(request, recipes_list):
         paginateList = paginator.page(paginator.num_pages)
 
     return paginateList
+
+
 def add(request):
     form = CreateRecipe()
     if request.method == "POST":
@@ -275,7 +287,7 @@ def add(request):
         messages.success(request, 'New cocktail created successfully !')
         context = {'recipe': get_ingredient(new_cocktail)}
 
-        return render(request,'recipe-detail.html', context)
+        return render(request, 'recipe-detail.html', context)
     # Si méthode GET, on présente le formulaire
     context = {'form': form}
-    return render(request,'recipe-add.html', context)
+    return render(request, 'recipe-add.html', context)

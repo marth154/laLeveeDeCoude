@@ -1,0 +1,34 @@
+@import '../base/breakpoints';
+@import '../base/variables';
+
+
+#id_ingredients {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  li{
+      margin-top: 10%;
+  }
+}
+
+
+@include media-breakpoint-down(md) {
+    #id_ingredients {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+}
+@include media-breakpoint-down(lg) {
+    #id_ingredients {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@include media-breakpoint-down(xs) {
+    #id_ingredients {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+#id_steps {
+    width: 100%;
+}
