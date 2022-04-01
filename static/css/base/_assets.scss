@@ -43,3 +43,9 @@ hr {
   border: 1px solid $green;
   color: $green;
 }
+
+
+img {
+  border-radius: 2px !important;
+  object-fit: cover;
+}

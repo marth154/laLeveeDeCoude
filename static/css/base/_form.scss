@@ -10,7 +10,10 @@ form {
   color: $dark-grey;
   font-weight: 400;
   margin-bottom: 12px;
-  width: 100%
+  width: 100%;
+  &:checked {
+    color: $color-primary
+  }
 }
 
 .input__field > input, .input__field > select{
