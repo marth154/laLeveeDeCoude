@@ -22,7 +22,7 @@ def get_categories():
     get_category = Category.objects.all()
     for category in get_category:
         categories.append(
-            (category.name, category.name))
+            (category.id, category.name))
     return categories
 
 
@@ -30,7 +30,7 @@ def get_glasses():
     glasses = [('', '')]
     get_glasses = Glass.objects.all()
     for glass in get_glasses:
-        glasses.append((glass.name, glass.name))
+        glasses.append((glass.id, glass.name))
     return glasses
 
 
@@ -39,7 +39,7 @@ def get_ingredients():
     get_ingredients = Ingredient.objects.all()
     for ingredient in get_ingredients:
         ingredients.append(
-            (ingredient.name, ingredient.name))
+            (ingredient.id, ingredient.name))
     return ingredients
 
 
