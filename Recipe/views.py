@@ -13,7 +13,7 @@ from Recipe.models import Category, Glass, Recipe, User
 
 
 def get_recipe():
-    latest_recipe = Recipe.objects.order_by('created_at')[:4]
+    latest_recipe = Recipe.objects.order_by('-created_at')[:4]
     categories = Category.objects.all()
     glasses = Glass.objects.all()
     users = User.objects.all()
@@ -26,7 +26,7 @@ def get_recipe():
 def random(request):
     
     recipes_with_ingredient = []
-    latest_recipe = Recipe.objects.order_by('created_at')[:4]
+    latest_recipe = Recipe.objects.order_by('-created_at')[:4]
     for recipe in latest_recipe:
         recipes_with_ingredient.append(get_ingredient(recipe))
             
@@ -193,7 +193,7 @@ def recipe_detail(request, id):
             is_favorite = Favorite.objects.filter(user=request.user, recipe=recipe)
         else:
             is_favorite = None
-        context = {'recipe': recipe, "latest_recipe": latest_recipe, "categories": categories,
+        context = {'recipe': get_ingredient(recipe), "latest_recipe": latest_recipe, "categories": categories,
                    "ingredients": ingredients, "glasses": glasses, "users": users, 'is_favorite': is_favorite}
 
     except Recipe.DoesNotExist:
@@ -250,14 +250,14 @@ def add(request):
     form = CreateRecipe()
     if request.method == "POST":
         user = User.objects.get(username=request.user)
-        category = Category.objects.get(name=request.POST.get('categories'))
-        glass = Glass.objects.get(name=request.POST.get('glasses'))
+        category = Category.objects.get(pk=request.POST.get('categories'))
+        glass = Glass.objects.get(pk=request.POST.get('glasses'))
 
         new_cocktail = Recipe.objects.create(
             name=request.POST.get('name'),
             user_id=user,
             category_id=category,
-            thumbnail="asset/default-recipe.png",
+            thumbnail=None,
             is_shared=request.POST.get('is_shared'),
             is_migrate=False,
             is_alcoholic=request.POST.get('alcoholic'),
@@ -267,15 +267,15 @@ def add(request):
             updated_at=datetime.now()
         )
         for ingredient in request.POST.getlist("ingredients"):
-            new_ingredient = Ingredient.objects.filter(name=ingredient)
+            new_ingredient = Ingredient.objects.filter(pk=ingredient)
             for ing in new_ingredient:
                 Ingredient_Group.objects.create(
                     recipe=new_cocktail, ingredient=ing, quantity="")
         # on prépare un nouveau message
         messages.success(request, 'New cocktail created successfully !')
-        context = {'response': new_cocktail}
+        context = {'recipe': get_ingredient(new_cocktail)}
 
-        return HttpResponseRedirect('/recipe/' + str(new_cocktail.id))
+        return render(request,'recipe-detail.html', context)
     # Si méthode GET, on présente le formulaire
     context = {'form': form}
     return render(request,'recipe-add.html', context)

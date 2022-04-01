@@ -1,19 +1,19 @@
 <form method="POST">
   {% csrf_token %}
   <div class="grid-xs-column1 grid-sm-column2 grid-md-column3 grid-lg-column4" style="column-gap: 20px">
-    <div>
+    <div class="w-100 mt-2">
       <div class="input__label">{{form.name.label}}</div>
       <div class="input__field">{{form.name}}</div>
     </div>
-    <div>
+    <div class="w-100 mt-2">
       <div class="input__label">{{form.categories.label}}</div>
       <div class="input__field">{{form.categories}}</div>
     </div>
-    <div>
+    <div class="w-100 mt-2">
       <div class="input__label">{{form.glasses.label}}</div>
       <div class="input__field">{{form.glasses}}</div>
     </div>
-    <div>
+    <div class="w-100 mt-2">
       <div class="input__label">{{form.alcoholic.label}}</div>
       <div class="input__field">{{form.alcoholic}}</div>
     </div>

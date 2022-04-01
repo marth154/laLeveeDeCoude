@@ -11,7 +11,7 @@
 
 <div class="my-5 d-flex flex-column justify-center">
   <a href="/recipe/list" >
-    <img src="{% static 'asset/categories/cocktail-' %}{{category.id}}.png" alt="My image" class="w-100 h-280px"/>
+    <img alt="{{category.name}}" src="{% static 'asset/categories/cocktail-' %}{{category.id}}.png" alt="My image" class="w-100 h-280px"/>
     <p class="text-uppercase font-weight-regular fontSize40 font-family-secondary">{{category.name}}</p>
   </a>
 </div>
