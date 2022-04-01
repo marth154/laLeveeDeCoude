@@ -10,7 +10,7 @@
 
 <div class="container my-5">
     <div class="text-center">
-        <h1 class="mb-1">{{ recipe.1.name }}{{response.strDrink}}</h1>
+        <h1 class="mb-1">{{ recipe.1.name }}</h1>
         {% for user in users %}
             {% ifequal user.pk recipe.user.pk %}
                 <p class="my-1">by {{ user.username }}</p>

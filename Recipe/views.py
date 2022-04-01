@@ -193,7 +193,7 @@ def recipe_detail(request, id):
             is_favorite = Favorite.objects.filter(user=request.user, recipe=recipe)
         else:
             is_favorite = None
-        context = {'recipe': recipe, "latest_recipe": latest_recipe, "categories": categories,
+        context = {'recipe': get_ingredient(recipe), "latest_recipe": latest_recipe, "categories": categories,
                    "ingredients": ingredients, "glasses": glasses, "users": users, 'is_favorite': is_favorite}
 
     except Recipe.DoesNotExist:
