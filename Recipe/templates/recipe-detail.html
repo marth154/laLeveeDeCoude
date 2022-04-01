@@ -8,7 +8,9 @@
 
 {% endcompress %}
 
+{% include "head.html" %}
 {% include "header.html" %}
+
 
 {% if recipe %}
   {% include "card-recipe-details.html" with recipe=recipe %}

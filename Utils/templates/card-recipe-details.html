@@ -6,6 +6,13 @@
   
 />
 
+<link
+  type="text/x-scss"
+  href="{% static 'css/custom/card-recipe-details.scss' %}"
+  rel="stylesheet"
+  
+/>
+
 {% endcompress %}
 
 <div class="container my-5">
@@ -17,29 +24,29 @@
             {% endifequal %}
         {% endfor %}
 
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center flex-wrap">
             {% if recipe %}
-                <span class="tag green mr-2">{{ recipe.1.category_id.name }}</span>
+                <span class="tag green mr-2 mt-2">{{ recipe.1.category_id.name }}</span>
             {% endif %}
 
             {% if recipe %}
-                <span class="tag blue mr-2">{{ recipe.1.glass_id.name }}</span>
+                <span class="tag blue mr-2 mt-2">{{ recipe.1.glass_id.name }}</span>
             {% endif %}
 
             {% if recipe %}
-                <span class="tag accent-middle mr-2">{% if recipe.1.is_alcoholic %}Alcoholic{% else %}Non alcoholic{% endif %}</span>
+                <span class="tag accent-middle mr-2 mt-2">{% if recipe.1.is_alcoholic %}Alcoholic{% else %}Non alcoholic{% endif %}</span>
             {% endif %}
 
         </div>
 
-        <div class="d-flex shadow-card my-4" >
+        <div class="d-flex flex-wrap shadow-card my-4 p-3" >
             {%if recipe.1.thumbnail %}
-                <img src="{{recipe.1.thumbnail}}" alt="{{recipe.1.name}}" class="w-410px m-3" />
+                <img src="{{recipe.1.thumbnail}}" alt="{{recipe.1.name}}" class="custom-thumbnail" />
             {% elif recipe %}
-                <img src="{% static 'asset/default-recipe.png' %}" alt="{{recipe.1.name}}" class="w-410px m-3" />
+                <img src="{% static 'asset/default-recipe.png' %}" alt="{{recipe.1.name}}" class="m-3 custom-thumbnail" />
             {% endif %}
 
-            <div class="pt-6 pl-6" style="text-align: left">
+            <div class="pt-6 p-xs-2 p-md-6" style="text-align: left">
                 <h2 class="mb-4">Ingredients</h2>
                 <ul class="list-unstyled"> 
                 {% if recipe %}

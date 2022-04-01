@@ -1,9 +1,17 @@
+@import '../base/breakpoints';
 @import "../base/variables";
 
 img.custom-image {
   width: 100%;
   object-fit: cover;
   border: 25px solid $color-bg-shade;
+}
+
+@include media-breakpoint-down(md) {
+  img.custom-image  {
+      display: none;
+  }
+  
 }
 
 .custom-size {

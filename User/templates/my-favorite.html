@@ -1,5 +1,5 @@
-{% include "header.html" %}
-  {%if my_favorites %}
+{% include "head.html" with title="My favourites | La levée de Coude"%} {% include "header.html" %}
+{%if my_favorites %}
     <div class="container">
       <div class="grid-md-column4">
         {% for fav in my_favorites %}

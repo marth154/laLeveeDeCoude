@@ -3,7 +3,8 @@
 
 @include media-breakpoint-down(md) {
     #hero-home img.bg-image {
-        opacity: 0.2
+        opacity: 0.2;
+        width: 100%;
     }
     
 }

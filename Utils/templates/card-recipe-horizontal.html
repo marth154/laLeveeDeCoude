@@ -9,9 +9,13 @@
 {% endcompress %}
 
 <div class="custom-card p-4 mb-4">
-  <div class="d-flex flex-wrap">
+  <div class="d-flex flex-wrap w-20">
     <div class="custom-wrapper-image mb-1">
-      <img src={{recipe.thumbnail}} "{{recipe.name}}">
+      {%if recipe.thumbnail %}
+      <img src="{{recipe.thumbnail}}" alt="{{recipe.name}}" class="custom-thumbnail" />
+  {% elif recipe %}
+      <img src="{% static 'asset/default-recipe.png' %}" alt="{{recipe.name}}" class="m-3 custom-thumbnail" />
+  {% endif %}
     </div>
     <div class="ml-4 mb-1">
       <div class="d-flex flex-wrap">

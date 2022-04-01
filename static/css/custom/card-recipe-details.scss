@@ -1,0 +1,13 @@
+@import '../base/breakpoints';
+@import '../base/variables';
+
+.custom-thumbnail {
+    max-width: 410px !important;
+}
+
+@include media-breakpoint-down(md) {
+    .custom-thumbnail {
+        width: 100% !important;
+    }
+    
+}

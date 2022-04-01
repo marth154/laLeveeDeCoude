@@ -6,8 +6,19 @@
 
 
 <head>
-    <title> La Levée de Coude: recipes for your favorite cocktails</title>
-    <meta name="description" property="og:description" content="Do you want to discover, create and share cocktails from around the world? Discover the barista sleeping in you with La Levée de Coude 💪">
+    {% if title %}
+        <title>{{title}}</title>
+    {% else %}
+        <title> La Levée de Coude: recipes for your favorite cocktails</title>
+    {% endif %}
+
+    {% if meta_desc %}
+        <title>{{meta_desc}}</title>
+    {% else %}
+        <meta name="description" property="og:description" content="Do you want to discover, create and share cocktails from around the world? Discover the barista sleeping in you with La Levée de Coude 💪">
+    {% endif %}
+
+
     <meta name="keywords" content="cocktails, barista, recipes, alcool">
 
     <link rel="icon" type="image/x-icon" href="{% static 'asset/favicon/favicon.ico' %}">
