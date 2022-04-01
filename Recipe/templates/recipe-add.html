@@ -1,28 +1,18 @@
 {% block content %} {% load static %} {% load compress %} {% compress css %}
-<link
-  type="text/x-scss"
-  href="{% static 'css/base/main.scss' %}"
-  rel="stylesheet"
-/>
-<link
-  type="text/x-scss"
-  href="{% static 'css/custom/login.scss' %}"
-  rel="stylesheet"
-/>
-<link
-  type="text/x-scss"
-  href="{% static 'css/custom/recipe-add.scss' %}"
-  rel="stylesheet"
-/>
+<link type="text/x-scss" href="{% static 'css/base/main.scss' %}" rel="stylesheet" />
+<link type="text/x-scss" href="{% static 'css/custom/login.scss' %}" rel="stylesheet" />
+<link type="text/x-scss" href="{% static 'css/custom/recipe-add.scss' %}" rel="stylesheet" />
 {% endcompress %}
 
-{% include "head.html" with title="Add a recipe ok cocktail | La Levée de Coude" %}
+{% include "head.html" with title="Add a cocktail | La Levée de Coude" %}
 {% include "header.html" %}
 
 <form method="POST">
   {% csrf_token %}
-  <div class="container w-100 bg-color-bg-shade">
-    <div class="grid-md-column3 grid-xs-column1 mt-5" style="justify-items: center;">
+  <div class="container w-100 bg-color-bg-shade mb-4 pb-4">
+    <h1 class="text-center">Add a recipe</h1>
+    <div class="grid-xs-column1 grid-sm-column2 grid-md-column3 grid-lg-column5 mt-5 b-4 w-80 mx-auto"
+      style="text-align: center;">
       <div>
         <div class="input__label">{{form.name.label}}</div>
         <div class="input__field">{{form.name}}</div>
@@ -35,9 +25,6 @@
         <div class="input__label">{{form.glasses.label}}</div>
         <div class="input__field">{{form.glasses}}</div>
       </div>
-    </div>
-
-    <div class="grid-md-column2 grid-xs-column1 mt-5 mb-3 w-60" style="justify-items: center;">
       <div>
         <div class="input__label">{{form.alcoholic.label}}</div>
         <div class="input__field">{{form.alcoholic}}</div>
@@ -51,26 +38,23 @@
   </div>
 
   <div class="container w-100">
-    <div class="grid-md-column1 grid-xs-column1 mt-5" style="justify-items: center;">
+    <div class="grid-md-column1 grid-xs-column1 mt-2 mx-auto h-400px" style="justify-items: center; overflow: auto;">
       <div>
-        <div class="input__label">{{form.ingredients.label}}</div>
-        <div class="input__field ">{{form.ingredients}}<div> 
+        <div class="input__label text-center">{{form.ingredients.label}}</div>
+        <div class="input__field ">{{form.ingredients}}<div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="grid-md-column1" style="justify-items: center;">
+    <div class="grid-md-column1 w-80 mx-auto mt-2" style="justify-items: center;">
       <div class="w-100">
         <div class="input__label">{{form.steps.label}}</div>
         <div class="input__field">{{form.steps}}</div>
       </div>
     </div>
-    
-    <div class="grid-md-column1" style="justify-items: center;">
-      <input
-        type="submit"
-        value="Créer"
-        class="button primary"
-      />
-    </div>
+
+    <div class="grid-md-column1 w-10 mx-auto" style="text-align: center;">
+      <input type="submit" value="Create" class="button primary" />
     </div>
   </div>
 </form>

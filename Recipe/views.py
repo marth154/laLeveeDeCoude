@@ -29,7 +29,7 @@ def random(request):
     latest_recipe = Recipe.objects.order_by('-created_at')[:4]
     for recipe in latest_recipe:
         recipes_with_ingredient.append(get_ingredient(recipe))
-
+    
     if(request.method == 'POST'):
         if(request.POST.get('remove')):
             change_favorite(request.POST, request.user,
@@ -260,6 +260,12 @@ def paginator(request, recipes_list):
 
 def add(request):
     form = CreateRecipe()
+    
+    if(request.POST.get('remove')):
+        change_favorite(request.POST, request.user, request.POST.get('remove'))
+    elif(request.POST.get('add')):
+        change_favorite(request.POST, request.user, request.POST.get('add'))
+
     if request.method == "POST":
         user = User.objects.get(username=request.user)
         category = Category.objects.get(pk=request.POST.get('categories'))
