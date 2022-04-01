@@ -9,6 +9,11 @@
   href="{% static 'css/custom/login.scss' %}"
   rel="stylesheet"
 />
+<link
+  type="text/x-scss"
+  href="{% static 'css/custom/recipe-add.scss' %}"
+  rel="stylesheet"
+/>
 {% endcompress %}
 
 {% include "head.html" with title="Add a recipe ok cocktail | La Levée de Coude" %}
@@ -16,53 +21,58 @@
 
 <form method="POST">
   {% csrf_token %}
-  <div class="container">
-    <div class="grid-md-column3">
+  <div class="container w-100 bg-color-bg-shade">
+    <div class="grid-md-column3 grid-xs-column1 mt-5" style="justify-items: center;">
       <div>
-        <div class="input_label">{{form.name.label}}</div>
-        <div class="input_field">{{form.name}}</div>
+        <div class="input__label">{{form.name.label}}</div>
+        <div class="input__field">{{form.name}}</div>
       </div>
       <div>
-        <div class="input_label">{{form.categories.label}}</div>
-        <div class="input_field">{{form.categories}}</div>
+        <div class="input__label">{{form.categories.label}}</div>
+        <div class="input__field">{{form.categories}}</div>
       </div>
       <div>
-        <div class="input_label">{{form.glasses.label}}</div>
-        <div class="input_field">{{form.glasses}}</div>
-      </div>
-    </div>
-
-    <div class="grid-md-column2">
-      <div>
-        <div class="input_label">{{form.alcoholic.label}}</div>
-        <div class="input_field">{{form.alcoholic}}</div>
-      </div>
-
-      <div>
-        <div class="input_label">{{form.is_shared.label}}</div>
-        <div class="input_field">{{form.is_shared}}</div>
+        <div class="input__label">{{form.glasses.label}}</div>
+        <div class="input__field">{{form.glasses}}</div>
       </div>
     </div>
 
-
-    <div class="grid-md-column1">
+    <div class="grid-md-column2 grid-xs-column1 mt-5 mb-3 w-60" style="justify-items: center;">
       <div>
-        <div class="input_label">{{form.ingredients.label}}</div>
-        <div class="input_field">{{form.ingredients }}<div> 
+        <div class="input__label">{{form.alcoholic.label}}</div>
+        <div class="input__field">{{form.alcoholic}}</div>
       </div>
-    </div>
-    <div class="grid-md-column1">
+
       <div>
-        <div class="input_label">{{form.steps.label}}</div>
-        <div class="input_field">{{form.steps}}</div>
+        <div class="input__label">{{form.is_shared.label}}</div>
+        <div class="input__field">{{form.is_shared}}</div>
       </div>
     </div>
   </div>
-  <input
-    type="submit"
-    value="Créer"
-    class="button-submit text-style-button-text"
-  />
+
+  <div class="container w-100">
+    <div class="grid-md-column1 grid-xs-column1 mt-5" style="justify-items: center;">
+      <div>
+        <div class="input__label">{{form.ingredients.label}}</div>
+        <div class="input__field ">{{form.ingredients}}<div> 
+      </div>
+    </div>
+    <div class="grid-md-column1" style="justify-items: center;">
+      <div class="w-100">
+        <div class="input__label">{{form.steps.label}}</div>
+        <div class="input__field">{{form.steps}}</div>
+      </div>
+    </div>
+    
+    <div class="grid-md-column1" style="justify-items: center;">
+      <input
+        type="submit"
+        value="Créer"
+        class="button primary"
+      />
+    </div>
+    </div>
+  </div>
 </form>
 
 {% include "footer.html" %} {% endblock content %}
